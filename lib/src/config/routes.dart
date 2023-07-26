@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../customer_module/register_customer.dart';
+import '../master_ui_module/main_screen/main_screen.dart';
 import '../master_ui_module/otp_screen.dart';
 import '../master_ui_module/phone_number_screen/enter_phone_number_screen.dart';
 
@@ -8,4 +10,7 @@ final Map<String, Widget Function(BuildContext)> routes = {
       const EnterPhoneNumberScreen(),
   OtpVerificationScreen.routeName: (BuildContext ctx) =>
       const OtpVerificationScreen(),
+  RegisterCustomerScreen.routeName: (BuildContext ctx) =>
+      const RegisterCustomerScreen(),
+  MainScreen.routeName: (BuildContext ctx) => const MainScreen(),
 };
