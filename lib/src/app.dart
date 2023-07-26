@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'config/routes.dart';
 import 'config/theme.dart';
-import 'splash_screen.dart';
+import 'master_ui_module/splash_screen.dart';
+import 'resources/blocs/master_blocs/user_resources/user_bloc.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -13,7 +14,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: const [],
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => UserBloc()..add(CheckIfLoggedIn()),
+        ),
+      ],
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
