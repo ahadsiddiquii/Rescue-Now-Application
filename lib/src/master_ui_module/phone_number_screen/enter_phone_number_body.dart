@@ -130,17 +130,6 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
                 ),
             ],
             const AddHeight(0.01),
-            //add dropdown here
-            // DropdownSearch<String>(
-            //   items: const ['Customer', 'Driver', 'Admin'],
-            //   dropdownDecoratorProps: DropDownDecoratorProps(
-            //     baseStyle: ScreenConfig.theme.textTheme.headline5,
-            //     dropdownSearchDecoration: const InputDecoration(),
-            //   ),
-            //   dropdownBuilder: (context, selectedItem) => SizedBox(),
-            //   onChanged: print,
-            //   selectedItem: 'Customer',
-            // ),
             UserRoleDropdown(
               selectedItem: _selectedItem,
               onChange: (String? newValue) {

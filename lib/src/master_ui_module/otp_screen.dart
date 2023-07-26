@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../config/globals.dart';
 import '../config/screen_config.dart';
+import '../customer_module/register_customer.dart';
 import '../generic_widgets/add_height.dart';
 import '../generic_widgets/buttons/wide_button.dart';
 import '../generic_widgets/circular_progress_indicator.dart';
@@ -11,7 +13,9 @@ import '../generic_widgets/custom_snackbar.dart';
 import '../generic_widgets/initial_padding.dart';
 import '../generic_widgets/rescue_now_appbar.dart';
 import '../generic_widgets/text_widget.dart';
+import '../resources/app_context_manager.dart';
 import '../resources/blocs/master_blocs/user_resources/user_bloc.dart';
+import '../resources/firestore_services.dart/user_firestore_service_helper.dart';
 import '../ui_config/decoration_constants.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -63,7 +67,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
 
   Widget _buildProceedButton() {
-    var state = BlocProvider.of<UserBloc>(context).state;
+    UserState state = BlocProvider.of<UserBloc>(context).state;
 
     if (state is UserLoading) {
       return RescueNowCircularProgressIndicator();
@@ -76,18 +80,55 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     );
   }
 
-  void onPressed() {
-    if (otpController.text == '2090') {
+  Future<void> _adminRegistrationLogic() async {
+    final bool isUserExist = await UserFirestoreServiceHelper.checkIfUserExists(
+      phoneNumber: userPhoneNumber,
+      userRole: userRole,
+    );
+    if (!isUserExist) {
+      //Register admin
+      // ignore: always_specify_types
       BlocProvider.of<UserBloc>(context).add(
         LoginOrRegister(
           phoneNumber: userPhoneNumber,
           userRole: userRole,
         ),
       );
+    }
+  }
+
+  Future<void> _customerRegistrationLogic() async {
+    final bool isUserExist = await UserFirestoreServiceHelper.checkIfUserExists(
+      phoneNumber: userPhoneNumber,
+      userRole: userRole,
+    );
+    if (!isUserExist) {
+      //Register Customer
+      // ignore: always_specify_types
+      final Map<String, dynamic> objectsToPass = {
+        'userPhoneNumber': userPhoneNumber,
+        'userRole': userRole,
+      };
+      Navigator.pushNamed(
+        context,
+        RegisterCustomerScreen.routeName,
+        arguments: objectsToPass,
+      );
+    }
+  }
+
+  Future<void> onPressed() async {
+    if (otpController.text == '2090') {
+      if (userRole == 'Admin') {
+        await _adminRegistrationLogic();
+      }
+      if (userRole == 'Customer') {
+        await _customerRegistrationLogic();
+      }
     } else {
       CustomSnackBar.snackBarTrigger(
         context: context,
-        message: 'Invalid OTP',
+        message: 'Invalid OTP, please enter a valid OTP',
       );
     }
   }
@@ -126,11 +167,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         enableActiveFill: true,
         controller: otpController,
         keyboardType: TextInputType.number,
-        validator: (value) {
+        validator: (String? value) {
           if (value!.length != 4) {}
           return null;
         },
-        onCompleted: (value) {
+        onCompleted: (String value) {
           if (value.length == 4) {
             setState(() {
               disableButton = false;
@@ -139,7 +180,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           }
           disableButton = true;
         },
-        onChanged: (value) {
+        onChanged: (String value) {
           print(value);
           if (value.length == 4) {
             setState(() {
@@ -147,7 +188,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             });
           }
         },
-        beforeTextPaste: (text) {
+        beforeTextPaste: (String? text) {
           print("Allowing to paste $text");
           if (double.tryParse(text!) != null)
             return true;
@@ -161,6 +202,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppContextManager.setAppContext(context);
     final Map<String, dynamic> argumentsOfOtpScreen =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     userPhoneNumber = argumentsOfOtpScreen['userPhoneNumber'] as String;
@@ -178,28 +220,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           },
         ),
         body: BlocConsumer<UserBloc, UserState>(
-          listener: (context, state) {
-            // print('THE STATE ON LISTENERR');
-            // print(state);
-            // if (state is UserLoggedIn) {
-            //   // final userStatusState = getUserStatusStates(state.user);
-            //   // if (isToggleButtonEnabled(userStatusState)) {
-            //   //Todo: set when login
-            //   // LoadeAppBarStatus().setAppBarStatus(true);
-            //   // }
-            //   popUntilHomeScreen(context);
-            // } else if (state is UserEnterDetails) {
-            //   Navigator.of(context)
-            //       .pushReplacementNamed(DriverDetailsScreen.route);
-            // } else if (state is UserVerificationError) {
-            //   CustomSnackBar.snackBarTrigger(
-            //     context: context,
-            //     message: state.error,
-            //     needsTranslation: false,
-            //   );
-            // }
+          listener: (BuildContext context, UserState state) {
+            if (state is UserLoggedIn) {
+              Globals.mainScreenNavigationWhenNotLoggedIn(context);
+            }
           },
-          builder: (context, state) {
+          builder: (BuildContext context, UserState state) {
             return InitScreen(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

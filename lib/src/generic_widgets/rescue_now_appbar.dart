@@ -61,7 +61,7 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
     return RescueNowText(
       widget.titleText!,
       style: ScreenConfig.theme.textTheme.headline2!.copyWith(
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
       ),
       maxLines: 2,
     );
@@ -101,20 +101,17 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
           : [],
 
       leading: widget.showBackButton
-          ? Directionality(
-              textDirection: TextDirection.ltr,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: InkWell(
-                  customBorder: const CircleBorder(),
-                  onTap: widget.onBackTap == null
-                      ? () => Navigator.of(context).pop()
-                      : widget.onBackTap,
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    color: DecorationConstants.kPrimaryTextColor,
-                    size: 28,
-                  ),
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: InkWell(
+                customBorder: const CircleBorder(),
+                onTap: widget.onBackTap == null
+                    ? () => Navigator.of(context).pop()
+                    : widget.onBackTap,
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: DecorationConstants.kPrimaryTextColor,
+                  size: 28,
                 ),
               ),
             )

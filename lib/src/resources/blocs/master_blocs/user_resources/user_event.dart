@@ -13,5 +13,16 @@ class LoginOrRegister extends UserEvent {
   });
   final String phoneNumber;
   final String userRole;
-  final Map<dynamic, dynamic>? userData;
+  final Map<String, dynamic>? userData;
+}
+
+class ResetStateToUserInitial extends UserEvent {}
+
+class MakeUserLoad extends UserEvent {}
+
+class MakeUserLoggedIn extends UserEvent {
+  MakeUserLoggedIn({
+    required this.user,
+  });
+  final User user;
 }

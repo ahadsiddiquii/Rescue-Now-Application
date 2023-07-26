@@ -44,5 +44,32 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(UserInitial());
       }
     });
+
+    on<ResetStateToUserInitial>((
+      ResetStateToUserInitial event,
+      Emitter<UserState> emit,
+    ) async {
+      emit(UserInitial());
+    });
+
+    on<MakeUserLoad>((
+      MakeUserLoad event,
+      Emitter<UserState> emit,
+    ) async {
+      emit(UserLoading());
+    });
+
+    on<MakeUserLoggedIn>((
+      MakeUserLoggedIn event,
+      Emitter<UserState> emit,
+    ) async {
+      CustomSnackBar.snackBarTrigger(
+        context: AppContextManager.getAppContext(),
+        message: 'Successfully Logged In',
+      );
+      emit(UserLoggedIn(
+        user: event.user,
+      ));
+    });
   }
 }
