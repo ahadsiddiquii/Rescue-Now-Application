@@ -1,7 +1,5 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../config/screen_config.dart';
 import '../../generic_widgets/add_height.dart';
@@ -9,9 +7,8 @@ import '../../generic_widgets/buttons/wide_button.dart';
 import '../../generic_widgets/initial_padding.dart';
 import '../../generic_widgets/rescue_now_text_field.dart';
 import '../../generic_widgets/text_widget.dart';
-import '../../resources/blocs/master_blocs/user_resources/user_bloc.dart';
-import '../../resources/models/user.dart';
 import '../../ui_config/decoration_constants.dart';
+import '../otp_screen.dart';
 import 'user_role_dropdown.dart';
 
 class EnterPhoneNumberBody extends StatefulWidget {
@@ -40,10 +37,14 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
     if (_mobileFormKey.currentState!.validate()) {
       _mobileFormKey.currentState!.save();
       final String mobileNum = '0$phoneNumber';
-      BlocProvider.of<UserBloc>(context).add(LoginOrRegister(
-        phoneNumber: mobileNum,
-        userRole: _selectedItem,
-      ));
+
+      // ignore: always_specify_types
+      final Map<String, dynamic> objectsToPass = {
+        'userPhoneNumber': mobileNum,
+        'userRole': _selectedItem,
+      };
+      Navigator.of(context)
+          .pushNamed(OtpVerificationScreen.routeName, arguments: objectsToPass);
     }
   }
 

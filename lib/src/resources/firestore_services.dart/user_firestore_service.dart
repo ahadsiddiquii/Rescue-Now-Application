@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
-import '../custom_exception_handler.dart';
 import '../models/user.dart';
 
 class UserFirestoreService {
@@ -10,6 +9,7 @@ class UserFirestoreService {
   Future<User?> addUser({
     required String phoneNumber,
     required String userRole,
+    Map<dynamic, dynamic>? userData,
   }) async {
     print("UserFirestoreService: addUser Function");
     User? user;

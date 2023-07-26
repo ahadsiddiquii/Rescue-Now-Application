@@ -27,7 +27,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       try {
         emit(UserLoading());
         final User? user = await _userFirestoreService.addUser(
-            phoneNumber: event.phoneNumber, userRole: event.userRole);
+          phoneNumber: event.phoneNumber,
+          userRole: event.userRole,
+          userData: event.userData,
+        );
         CustomSnackBar.snackBarTrigger(
           context: AppContextManager.getAppContext(),
           message: 'Successfully Logged In',

@@ -20,7 +20,8 @@ class RescueNowAppBar extends StatefulWidget implements PreferredSizeWidget {
       this.centerTitle = true,
       this.leadingWidth,
       this.showBackButton = false,
-      this.showActions = true,
+      this.automaticallyImplyLeading = false,
+      this.showActions = false,
       this.onBackTap,
       Key? key})
       : super(key: key);
@@ -37,6 +38,7 @@ class RescueNowAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final VoidCallback? onBackTap;
   final bool showActions;
+  final bool automaticallyImplyLeading;
 
   @override
   State<RescueNowAppBar> createState() => _RescueNowAppBarState();
