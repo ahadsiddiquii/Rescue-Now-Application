@@ -5,4 +5,11 @@ abstract class UserEvent {}
 
 class CheckIfLoggedIn extends UserEvent {}
 
-class Login extends UserEvent {}
+class LoginOrRegister extends UserEvent {
+  LoginOrRegister({
+    required this.phoneNumber,
+    required this.userRole,
+  });
+  final String phoneNumber;
+  final String userRole;
+}

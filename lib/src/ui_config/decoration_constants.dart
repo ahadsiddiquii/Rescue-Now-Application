@@ -5,7 +5,7 @@ class DecorationConstants {
   static Color kAppBarColor = Colors.white;
   static const Color kScaffoldBackgroundColor = Colors.white;
   static Color kGreySecondaryTextColor = const Color(0xFF9EA4B2);
-  static const Color kThemeColor = const Color(0xFF87C140);
+  static const Color kThemeColor = const Color(0xFF45b3e0);
   static Color kButtonColor = const Color(0xFF87C140);
   static Color kGreySecondaryColor = const Color(0xFFF3F9EA);
   static Color kRideTagColor = const Color(0xFF2673D5);

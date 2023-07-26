@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+class UserRoles {
+  UserRoles._();
+  static List<String> userRolesList = const ['Customer', 'Driver', 'Admin'];
+}
+
 User userFromJson(String str) =>
     User.fromJson(json.decode(str) as Map<String, dynamic>);
 
@@ -8,31 +13,27 @@ String userToJson(User data) => json.encode(data.toJson());
 class User {
   User({
     required this.id,
+    required this.phoneNumberRoleKey,
     required this.phoneNumber,
-    required this.isAdmin,
-    required this.isCustomer,
-    required this.isDriver,
+    required this.role,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json['id'] as String,
         phoneNumber: json['phoneNumber'] as String,
-        isAdmin: json['isAdmin'] as bool,
-        isCustomer: json['isCustomer'] as bool,
-        isDriver: json['isDriver'] as bool,
+        phoneNumberRoleKey: json['phoneNumberRoleKey'] as String,
+        role: json['role'] as String,
       );
 
   String id;
   String phoneNumber;
-  bool isAdmin;
-  bool isCustomer;
-  bool isDriver;
+  String phoneNumberRoleKey;
+  String role;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'phoneNumber': phoneNumber,
-        'isAdmin': isAdmin,
-        'isCustomer': isCustomer,
-        'isDriver': isDriver,
+        'phoneNumberRoleKey': phoneNumberRoleKey,
+        'role': role,
       };
 }
