@@ -6,7 +6,7 @@ import '../config/screen_config.dart';
 
 import '../resources/blocs/master_blocs/user_resources/user_bloc.dart';
 import '../ui_config/decoration_constants.dart';
-import 'enter_phone_number_screen.dart';
+import 'phone_number_screen/enter_phone_number_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
