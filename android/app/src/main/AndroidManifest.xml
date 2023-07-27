@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="rescue.now.application">
+    package="com.example.rescue_now_application">
    <application
         android:label="rescue_now_application"
         android:name="${applicationName}"
