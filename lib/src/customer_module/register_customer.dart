@@ -97,7 +97,7 @@ class _RegisterCustomerScreenState extends State<RegisterCustomerScreen> {
             children: [
               RescueNowTextField(
                 controller: fullNameController,
-                label: 'Enter Full Name',
+                label: 'Enter full name',
                 hintText: 'John Smith',
                 textCapitalization: TextCapitalization.words,
                 keyboadType: TextInputType.text,
@@ -115,7 +115,7 @@ class _RegisterCustomerScreenState extends State<RegisterCustomerScreen> {
               const AddHeight(0.03),
               RescueNowTextField(
                 controller: emailController,
-                label: 'Enter Email',
+                label: 'Enter email',
                 hintText: 'abc@xyz.com',
                 keyboadType: TextInputType.emailAddress,
                 validator: (String? val) {

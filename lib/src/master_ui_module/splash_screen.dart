@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
 import '../config/screen_config.dart';
-
 import '../resources/blocs/master_blocs/user_resources/user_bloc.dart';
 import '../ui_config/decoration_constants.dart';
 import 'phone_number_screen/enter_phone_number_screen.dart';
@@ -17,7 +16,8 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<UserBloc, UserState>(
       listener: (BuildContext context, UserState state) {
         if (state is UserInitial) {
-          Navigator.pushNamed(context, EnterPhoneNumberScreen.routeName);
+          Navigator.pushReplacementNamed(
+              context, EnterPhoneNumberScreen.routeName);
         }
       },
       child: Scaffold(

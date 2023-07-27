@@ -6,6 +6,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../config/globals.dart';
 import '../config/screen_config.dart';
 import '../customer_module/register_customer.dart';
+import '../driver_module/register_driver.dart';
 import '../generic_widgets/add_height.dart';
 import '../generic_widgets/buttons/wide_button.dart';
 import '../generic_widgets/circular_progress_indicator.dart';
@@ -117,6 +118,26 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     }
   }
 
+  Future<void> _driverRegistrationLogic() async {
+    final bool isUserExist = await UserFirestoreServiceHelper.checkIfUserExists(
+      phoneNumber: userPhoneNumber,
+      userRole: userRole,
+    );
+    if (!isUserExist) {
+      //Register Driver
+      // ignore: always_specify_types
+      final Map<String, dynamic> objectsToPass = {
+        'userPhoneNumber': userPhoneNumber,
+        'userRole': userRole,
+      };
+      Navigator.pushNamed(
+        context,
+        RegisterDriverScreen.routeName,
+        arguments: objectsToPass,
+      );
+    }
+  }
+
   Future<void> onPressed() async {
     if (otpController.text == '2090') {
       if (userRole == 'Admin') {
@@ -124,6 +145,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       }
       if (userRole == 'Customer') {
         await _customerRegistrationLogic();
+      }
+      if (userRole == 'Driver') {
+        await _driverRegistrationLogic();
       }
     } else {
       CustomSnackBar.snackBarTrigger(
