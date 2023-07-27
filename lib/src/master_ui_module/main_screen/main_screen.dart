@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../admin_module/home/admin_home.dart';
 import '../../generic_widgets/initial_padding.dart';
 import '../../generic_widgets/rescue_now_appbar.dart';
 import '../../resources/app_context_manager.dart';
@@ -19,6 +20,15 @@ class MainScreen extends StatelessWidget {
     }
   }
 
+  String getUserRole(BuildContext context) {
+    final UserState userState = BlocProvider.of<UserBloc>(context).state;
+    if (userState is UserLoggedIn) {
+      return userState.user.role;
+    } else {
+      return ' ';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     AppContextManager.setAppContext(context);
@@ -30,7 +40,10 @@ class MainScreen extends StatelessWidget {
         isHamburger: false,
         leadingWidth: 0,
       ),
-      body: InitScreen(child: Container()),
+      body: InitScreen(
+          child: getUserRole(context) == 'Admin'
+              ? AdminHomeDisplay()
+              : SizedBox()),
     );
   }
 }

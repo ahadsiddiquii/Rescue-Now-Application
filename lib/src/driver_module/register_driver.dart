@@ -75,12 +75,12 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
         showProfileImageError = true;
       });
     }
-    if (repo.cnicFront == null || repo.cnicBack == null) {
+    if (repo.cnicFront == null) {
       setState(() {
         showCnicImageError = true;
       });
     }
-    if (repo.licenseFront == null || repo.licenseBack == null) {
+    if (repo.licenseFront == null) {
       setState(() {
         showLicenseImageError = true;
       });

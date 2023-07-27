@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rescue_now_application/src/resources/blocs/retrieve_ambulance_resources/retrieve_ambulances_bloc.dart';
 
 import 'config/routes.dart';
 import 'config/theme.dart';
 import 'master_ui_module/splash_screen.dart';
+import 'resources/blocs/ambulance_resources/ambulance_bloc.dart';
 import 'resources/blocs/master_blocs/user_resources/user_bloc.dart';
 
 class App extends StatelessWidget {
@@ -17,6 +19,12 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (BuildContext context) => UserBloc()..add(CheckIfLoggedIn()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => AmbulanceBloc(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => RetrieveAmbulancesBloc(),
         ),
       ],
       child: GestureDetector(
