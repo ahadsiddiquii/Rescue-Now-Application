@@ -57,7 +57,7 @@ class _RegisterCustomerScreenState extends State<RegisterCustomerScreen> {
     return BlocConsumer<UserBloc, UserState>(
       listener: (BuildContext context, UserState state) {
         if (state is UserLoggedIn) {
-          Globals.mainScreenNavigationWhenNotLoggedIn(context);
+          Globals.customerMainScreenNavigationWhenNotLoggedIn(context);
         }
       },
       builder: (BuildContext context, UserState state) {

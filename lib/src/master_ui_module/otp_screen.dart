@@ -246,7 +246,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         body: BlocConsumer<UserBloc, UserState>(
           listener: (BuildContext context, UserState state) {
             if (state is UserLoggedIn) {
-              Globals.mainScreenNavigationWhenNotLoggedIn(context);
+              if (state.user.role == 'Customer') {
+                Globals.customerMainScreenNavigationWhenNotLoggedIn(context);
+              } else {
+                Globals.mainScreenNavigationWhenNotLoggedIn(context);
+              }
             }
           },
           builder: (BuildContext context, UserState state) {

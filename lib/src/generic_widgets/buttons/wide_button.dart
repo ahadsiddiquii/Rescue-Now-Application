@@ -50,6 +50,9 @@ class WideButton extends StatelessWidget {
           width:
               buttonWidth != null ? buttonWidth : ScreenConfig.screenSizeWidth,
           decoration: BoxDecoration(
+            gradient: (!disableButton && !isTransparent)
+                ? DecorationConstants.linearGradient
+                : null,
             color: disableButton
                 ? Colors.grey[400]
                 : isTransparent

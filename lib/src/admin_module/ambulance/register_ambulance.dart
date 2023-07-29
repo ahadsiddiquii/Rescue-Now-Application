@@ -49,8 +49,6 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
   }
 
   Future<void> submit() async {
-    final isValidForm = _ambulanceRegistrationFormKey.currentState!.validate();
-
     if (vehicleFront == null) {
       setState(() {
         showVehicleImageError = true;

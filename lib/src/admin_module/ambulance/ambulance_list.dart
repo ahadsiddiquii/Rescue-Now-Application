@@ -59,7 +59,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
             if (state is RetrievedAllAmbulances) {
               return ListView.separated(
                 primary: false,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, i) {
                   return Card(
                     color: DecorationConstants.kAppBarColor,
@@ -75,7 +75,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                               child: Image.memory(base64Decode(
                                   state.allAmbulanceList[i].vehicleFrontImage)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             RescueNowText(state.allAmbulanceList[i].plateNumber)
@@ -89,7 +89,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                                   state.allAmbulanceList[i].plateNumber,
                             ));
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.delete,
                             color: Colors.red,
                           ),
@@ -99,21 +99,18 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                   );
                 },
                 separatorBuilder: (context, i) {
-                  return RescueDivider(
-                    thickeness: 1,
-                  );
+                  return const RescueDivider();
                 },
                 itemCount: state.allAmbulanceList.length,
               );
             }
-            return SizedBox();
+            return const SizedBox();
           },
         ),
       )),
       floatingActionButton: FloatingActionButton(
-        mini: false,
         backgroundColor: DecorationConstants.kThemeColor,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(
             context,

@@ -12,9 +12,9 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp();
   if (Firebase.apps.isNotEmpty) {
-    print('Firebase not initialized');
-  } else {
     print('Firebase is initialized');
+  } else {
+    print('Firebase is not initialized');
   }
   runApp(const App());
 }

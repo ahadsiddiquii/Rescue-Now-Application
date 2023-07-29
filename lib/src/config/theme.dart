@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../ui_config/decoration_constants.dart';
 
 final theme = ThemeData(
@@ -30,7 +31,7 @@ final theme = ThemeData(
   appBarTheme: const AppBarTheme(elevation: 0),
   scaffoldBackgroundColor: Colors.white,
   backgroundColor: Colors.white,
-  fontFamily: 'Proxima Nova',
+  fontFamily: 'Gilroy',
   textTheme: TextTheme(
     headline1:
         TextStyle(fontSize: 38.0, color: DecorationConstants.kPrimaryTextColor),

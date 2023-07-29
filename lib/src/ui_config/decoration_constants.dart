@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 
 class DecorationConstants {
-  static Color themeColor = Color(0xff87c232);
+  static const Color themeColor = Color(0xff87c232);
   static Color kAppBarColor = Colors.white;
   static const Color kScaffoldBackgroundColor = Colors.white;
   static Color kGreySecondaryTextColor = const Color(0xFF9EA4B2);
-  static const Color kThemeColor = const Color(0xFF45b3e0);
+  static const Color kThemeColor = Color(0xffCE3533);
+  static const Color kThemeSecondaryColor = Color.fromARGB(255, 230, 128, 127);
   static Color kButtonColor = const Color(0xFF87C140);
   static Color kGreySecondaryColor = const Color(0xFFF3F9EA);
   static Color kRideTagColor = const Color(0xFF2673D5);
   static Color kDeliveryTagColor = const Color(0xFFD59B26);
   static Color kCorporateTagColor = const Color(0xFFD245B9);
-  static Color kEarningByCategoryCardColor = Color(0xFFF1F9F9);
+  static const Color kEarningByCategoryCardColor = Color(0xFFF1F9F9);
 
   static Color kWideSectionBackgroundColor = const Color(0xFFF4F6FB);
   static Color kMessageGreyAreaColor = const Color(0xFFEBEEF3);
   static Color kChatMessageTextColor = const Color(0xFF3D4856);
   static Color kChatMessageIconColor = const Color(0xFF9EA4B2);
   static Color kMessageBubbleDividerColor = const Color(0xFFC2CADE);
-  static const Color kTextFieldBackgroundColor = const Color(0xFFF4F6FB);
-  static Color kDropShadowColor = const Color(0xFF2673D5).withOpacity(0.2);
+  static const Color kTextFieldBackgroundColor = Color(0xFFF4F6FB);
+  static const Color kDropShadowColor = Color(0xFF3E4958);
   static Color kMessageWhiteAreaColor = Colors.white;
-  static const Color kPrimaryTextColor = const Color(0xFF3E4958);
-  static const Color kPrimaryIconsColor = const Color(0xFF3E4958);
+  static const Color kPrimaryTextColor = Color(0xFF3E4958);
+  static const Color kPrimaryIconsColor = Color(0xFF3E4958);
   static Color kButtonTextColor = Colors.white;
   static Color kBottomNavigationBarBackgroundColor = Colors.white;
   static Color kBottomNavigationBarTextColor = const Color(0xFF3D4856);
   static Color kRedColor = const Color(0xFFD44B3B);
   static Color kOrderChatGreyColor = const Color(0xFF8E8E93);
-  static const Color kChatFieldBackgroundColor = const Color(0xFFF6F6F6);
+  static const Color kChatFieldBackgroundColor = Color(0xFFF6F6F6);
 
   static double kChatBubbleBorderRadius = 10;
   static double kMessageBubbleMargin = 12;
@@ -64,14 +65,23 @@ class DecorationConstants {
   static const String orderChatIconsPath = 'assets/icons/newChatUi/';
   static const String animationPath = 'assets/animations/';
   static const String imagePath = 'assets/images/';
-  static const String drawerIconsPath = iconsPath + 'drawerIcons/';
-  static const String chatIconsPath = iconsPath + 'chatScreenIcons/';
+  static const String drawerIconsPath = '${iconsPath}drawerIcons/';
+  static const String chatIconsPath = '${iconsPath}chatScreenIcons/';
 
   static List<BoxShadow> dropShadow = [
-    BoxShadow(
+    const BoxShadow(
       color: kDropShadowColor,
       blurRadius: 6,
       offset: Offset(0, 3),
     ),
   ];
+
+  static LinearGradient linearGradient = const LinearGradient(
+    colors: [
+      kThemeColor,
+      kThemeSecondaryColor,
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
 }

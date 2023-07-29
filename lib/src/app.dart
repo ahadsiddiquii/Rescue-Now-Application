@@ -7,6 +7,7 @@ import 'config/theme.dart';
 import 'master_ui_module/splash_screen.dart';
 import 'resources/blocs/ambulance_resources/ambulance_bloc.dart';
 import 'resources/blocs/master_blocs/user_resources/user_bloc.dart';
+import 'resources/blocs/navigation_bar_resources/navigation_bar_bloc.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -19,6 +20,9 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (BuildContext context) => UserBloc()..add(CheckIfLoggedIn()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => NavigationBarBloc(),
         ),
         BlocProvider(
           create: (BuildContext context) => AmbulanceBloc(),
