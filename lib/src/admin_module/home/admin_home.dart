@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../config/globals.dart';
 import '../../config/screen_config.dart';
 import '../../generic_widgets/add_height.dart';
 import '../../generic_widgets/text_widget.dart';
@@ -57,6 +58,7 @@ class AdminHomeDisplay extends StatelessWidget {
         ),
         AddHeight(DecorationConstants.kWidgetDistanceHeight + 0.03),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AdminDecoratedContainer(
               onTap: () {
@@ -79,6 +81,35 @@ class AdminHomeDisplay extends StatelessWidget {
                     AddHeight(DecorationConstants.kWidgetDistanceHeight),
                     RescueNowText(
                       'Manage Hospitals',
+                      textAlign: TextAlign.center,
+                      style: ScreenConfig.theme.textTheme.titleLarge?.copyWith(
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            AdminDecoratedContainer(
+              onTap: () {
+                Globals.logout(
+                  context,
+                );
+              },
+              backgroundColor: const Color.fromARGB(255, 247, 214, 193),
+              child: SizedBox(
+                width: ScreenConfig.screenSizeWidth * 0.3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      child: Image.asset(
+                        '${DecorationConstants.imagePath}logout_image.png',
+                      ),
+                    ),
+                    AddHeight(DecorationConstants.kWidgetDistanceHeight),
+                    RescueNowText(
+                      'Logout',
                       textAlign: TextAlign.center,
                       style: ScreenConfig.theme.textTheme.titleLarge?.copyWith(
                         color: Colors.black,

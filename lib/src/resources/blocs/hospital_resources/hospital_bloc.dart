@@ -70,5 +70,8 @@ class HospitalBloc extends Bloc<HospitalEvent, HospitalState> {
         emit(HospitalInitial());
       }
     });
+    on<SetHospitalBlocToInitial>((event, emit) async {
+      emit(HospitalInitial());
+    });
   }
 }

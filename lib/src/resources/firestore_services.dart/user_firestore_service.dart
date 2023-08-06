@@ -6,6 +6,54 @@ import '../models/user.dart';
 class UserFirestoreService {
   final String collectionName = 'User';
 
+  Future<User?> getUserById({
+    required String userId,
+  }) async {
+    print('UserFirestoreService: getUserById Function');
+    User? user;
+    try {
+      await FirebaseFirestore.instance
+          .collection(collectionName)
+          .where(
+            'id',
+            isEqualTo: userId,
+          )
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (final doc in querySnapshot.docs) {
+          print('userFound');
+
+          Map<String, dynamic> userMap = {
+            'id': doc['id'],
+            'role': doc['role'],
+            'phoneNumber': doc['phoneNumber'],
+            'phoneNumberRoleKey': doc['phoneNumberRoleKey'],
+          };
+          if (doc['role'] == 'Customer') {
+            userMap.addEntries(
+              {
+                'fullName': doc['fullName'],
+                'email': doc['email'],
+              }.entries,
+            );
+          }
+          if (doc['role'] == 'Driver') {
+            userMap.addEntries(
+              {
+                'fullName': doc['fullName'],
+              }.entries,
+            );
+          }
+
+          user = User.fromJson(userMap);
+        }
+      });
+      return user;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
   Future<User?> loginUser({
     required String phoneNumber,
     required String userRole,

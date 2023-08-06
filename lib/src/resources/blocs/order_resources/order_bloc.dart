@@ -85,5 +85,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         emit(OrderInitial());
       }
     });
+    on<SetOrderBlocToInitial>((event, emit) async {
+      emit(OrderInitial());
+    });
   }
 }

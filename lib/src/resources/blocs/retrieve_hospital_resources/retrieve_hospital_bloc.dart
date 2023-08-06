@@ -34,5 +34,8 @@ class RetrieveHospitalBloc
         emit(RetrieveHospitalInitial());
       }
     });
+    on<SetRetrieveHospitalsBlocToInitial>((event, emit) async {
+      emit(RetrieveHospitalInitial());
+    });
   }
 }

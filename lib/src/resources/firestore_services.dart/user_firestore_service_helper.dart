@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app_context_manager.dart';
 import '../blocs/master_blocs/user_resources/user_bloc.dart';
@@ -8,6 +9,16 @@ import 'user_firestore_service.dart';
 class UserFirestoreServiceHelper {
   static final UserFirestoreService _userFirestoreService =
       UserFirestoreService();
+  static Future<bool> saveUserIdToPreferences(String userId) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user', userId);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 
   static Future<bool> checkIfUserExists({
     required String phoneNumber,
@@ -37,7 +48,7 @@ class UserFirestoreServiceHelper {
       }
       return userFound;
     } catch (e) {
-      print(e.toString());
+      print(e);
       return userFound;
     }
   }

@@ -37,3 +37,5 @@ class GetUpdatedCurrentOrder extends DriverCurrentJobEvent {
   final String orderId;
   final Emergency currentOrder;
 }
+
+class SetDriverCurrentJobBlocToInitial extends DriverCurrentJobEvent {}

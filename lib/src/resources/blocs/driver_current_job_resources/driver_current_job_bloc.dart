@@ -88,5 +88,8 @@ class DriverCurrentJobBloc
         ));
       }
     });
+    on<SetDriverCurrentJobBlocToInitial>((event, emit) async {
+      emit(DriverCurrentJobInitial());
+    });
   }
 }

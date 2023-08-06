@@ -20,3 +20,5 @@ class DeleteAmbulance extends AmbulanceEvent {
   });
   final String plateNumber;
 }
+
+class SetAmbulanceBlocToInitial extends AmbulanceEvent {}

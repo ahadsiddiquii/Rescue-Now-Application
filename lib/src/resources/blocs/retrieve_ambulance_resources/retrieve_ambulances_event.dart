@@ -4,3 +4,5 @@ part of 'retrieve_ambulances_bloc.dart';
 abstract class RetrieveAmbulancesEvent {}
 
 class GetAllAmbulances extends RetrieveAmbulancesEvent {}
+
+class SetRetrieveAmbulancesBlocToInitial extends RetrieveAmbulancesEvent {}

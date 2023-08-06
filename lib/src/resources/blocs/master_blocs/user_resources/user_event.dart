@@ -26,3 +26,5 @@ class MakeUserLoggedIn extends UserEvent {
   });
   final User user;
 }
+
+class LogoutUser extends UserEvent {}

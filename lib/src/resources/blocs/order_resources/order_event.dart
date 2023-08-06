@@ -11,3 +11,5 @@ class InsertEmergencyOrder extends OrderEvent {
   final String emergencyLevel;
   final String stress;
 }
+
+class SetOrderBlocToInitial extends OrderEvent {}

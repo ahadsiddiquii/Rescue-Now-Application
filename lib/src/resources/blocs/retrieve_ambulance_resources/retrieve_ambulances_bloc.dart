@@ -34,5 +34,8 @@ class RetrieveAmbulancesBloc
         emit(RetrieveAmbulancesInitial());
       }
     });
+    on<SetRetrieveAmbulancesBlocToInitial>((event, emit) async {
+      emit(RetrieveAmbulancesInitial());
+    });
   }
 }

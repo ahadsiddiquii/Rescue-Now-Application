@@ -4,3 +4,5 @@ part of 'retrieve_order_bloc.dart';
 abstract class RetrieveOrderEvent {}
 
 class GetAllUnAcceptedOrders extends RetrieveOrderEvent {}
+
+class SetRetrieveOrderBlocToInitial extends RetrieveOrderEvent {}

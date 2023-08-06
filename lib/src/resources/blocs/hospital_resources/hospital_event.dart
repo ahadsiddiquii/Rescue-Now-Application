@@ -20,3 +20,5 @@ class DeleteHospital extends HospitalEvent {
   });
   final String hospitalId;
 }
+
+class SetHospitalBlocToInitial extends HospitalEvent {}

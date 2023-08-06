@@ -32,5 +32,8 @@ class RetrieveOrderBloc extends Bloc<RetrieveOrderEvent, RetrieveOrderState> {
         emit(RetrieveOrderInitial());
       }
     });
+    on<SetRetrieveOrderBlocToInitial>((event, emit) async {
+      emit(RetrieveOrderInitial());
+    });
   }
 }

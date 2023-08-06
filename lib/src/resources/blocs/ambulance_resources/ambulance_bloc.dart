@@ -12,12 +12,12 @@ part 'ambulance_state.dart';
 
 class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
   AmbulanceBloc() : super(AmbulanceInitial()) {
-    final _ambulanceFirestoreService = AmbulanceFirestoreService();
+    final ambulanceFirestoreService = AmbulanceFirestoreService();
     on<AddAmbulance>((event, emit) async {
       try {
         emit(AmbulanceLoading());
         final bool isAmbulanceAdded =
-            await _ambulanceFirestoreService.addAmbulance(
+            await ambulanceFirestoreService.addAmbulance(
           plateNumber: event.plateNumber,
           vehicleImage: event.vehicleImage,
           registrationImage: event.registrationImage,
@@ -47,7 +47,7 @@ class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
       try {
         emit(AmbulanceLoading());
         final bool isAmbulanceDeleted =
-            await _ambulanceFirestoreService.deleteAmbulance(
+            await ambulanceFirestoreService.deleteAmbulance(
           event.plateNumber,
         );
         if (isAmbulanceDeleted) {
@@ -70,6 +70,9 @@ class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
         );
         emit(AmbulanceInitial());
       }
+    });
+    on<SetAmbulanceBlocToInitial>((event, emit) async {
+      emit(AmbulanceInitial());
     });
   }
 }
