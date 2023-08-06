@@ -10,7 +10,7 @@ class UserFirestoreService {
     required String phoneNumber,
     required String userRole,
   }) async {
-    print("UserFirestoreService: loginUser Function");
+    print('UserFirestoreService: loginUser Function');
     User? user;
     try {
       await FirebaseFirestore.instance
@@ -18,8 +18,8 @@ class UserFirestoreService {
           .where('phoneNumberRoleKey', isEqualTo: phoneNumber + userRole)
           .get()
           .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-          print("userFound");
+        for (final doc in querySnapshot.docs) {
+          print('userFound');
 
           Map<String, dynamic> userMap = {
             'id': doc['id'],
@@ -35,9 +35,16 @@ class UserFirestoreService {
               }.entries,
             );
           }
+          if (userRole == 'Driver') {
+            userMap.addEntries(
+              {
+                'fullName': doc['fullName'],
+              }.entries,
+            );
+          }
 
           user = User.fromJson(userMap);
-        });
+        }
       });
       return user;
     } catch (e) {
@@ -50,7 +57,7 @@ class UserFirestoreService {
     required String userRole,
     Map<String, dynamic>? userData,
   }) async {
-    print("UserFirestoreService: addUser Function");
+    print('UserFirestoreService: addUser Function');
     User? user;
     try {
       final String userId = const Uuid().v1();
@@ -71,7 +78,7 @@ class UserFirestoreService {
             .doc(userId)
             .set(userMap)
             .catchError((e) {
-          print(e.toString());
+          print(e);
           throw e.toString();
         });
         user = User.fromJson(userMap);

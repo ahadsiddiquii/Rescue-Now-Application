@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../admin_module/home/admin_home.dart';
+import '../../admin_module/home/admin_home_appbar.dart';
+import '../../driver_module/home/driver_home_appbar.dart';
+import '../../driver_module/home/driver_home_display.dart';
 import '../../generic_widgets/initial_padding.dart';
 import '../../generic_widgets/rescue_now_appbar.dart';
 import '../../resources/app_context_manager.dart';
@@ -29,21 +32,38 @@ class MainScreen extends StatelessWidget {
     }
   }
 
+  PreferredSizeWidget? getAppBar(BuildContext context) {
+    if (getUserRole(context) == 'Admin') {
+      return const AdminHomeAppBar();
+    } else if (getUserRole(context) == 'Driver') {
+      return const DriverHomeAppBar();
+    }
+    return RescueNowAppBar(
+      titleText: getAppBarTitle(context),
+      isHamburger: false,
+      leadingWidth: 0,
+    );
+  }
+
+  Widget getScaffoldBody(BuildContext context) {
+    final String currentUserRole = getUserRole(context);
+    if (currentUserRole == 'Admin') {
+      return const AdminHomeDisplay();
+    }
+    if (currentUserRole == 'Driver') {
+      return const DriverHomeDisplay();
+    }
+    return const SizedBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     AppContextManager.setAppContext(context);
     return Scaffold(
-      appBar: RescueNowAppBar(
-        titleText: getAppBarTitle(context),
-        centerTitle: true,
-        showActions: false,
-        isHamburger: false,
-        leadingWidth: 0,
-      ),
+      appBar: getAppBar(context),
       body: InitScreen(
-          child: getUserRole(context) == 'Admin'
-              ? AdminHomeDisplay()
-              : SizedBox()),
+        child: getScaffoldBody(context),
+      ),
     );
   }
 }

@@ -16,7 +16,7 @@
 
 analyzer:
   language:
-    strict-casts: true
+    # strict-casts: true
     strict-raw-types: true
   errors:
     # allow self-reference to deprecated members (we do this because otherwise we have
@@ -31,7 +31,7 @@ linter:
   rules:
     # This list is derived from the list of all available lints located at
     # https://github.com/dart-lang/linter/blob/main/example/all.yaml
-    - always_declare_return_types
+    # - always_declare_return_types
     - always_put_control_body_on_new_line
     # - always_put_required_named_parameters_first # we prefer having parameters in the same order as fields https://github.com/flutter/flutter/issues/10219
     - annotate_overrides

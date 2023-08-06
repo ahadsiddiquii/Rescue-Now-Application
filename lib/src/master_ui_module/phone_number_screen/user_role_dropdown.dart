@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/screen_config.dart';
@@ -44,7 +43,8 @@ class UserRoleDropdown extends StatelessWidget {
           onChange(newValue);
         },
         value: selectedItem,
-        hint: Text(' '), // Hint text when no option is selected
+        underline: const SizedBox(),
+        hint: const SizedBox(), // Hint text when no option is selected
       ),
     );
   }

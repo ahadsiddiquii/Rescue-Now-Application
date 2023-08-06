@@ -12,7 +12,7 @@ class AmbulanceFirestoreService {
     required String vehicleImage,
     required String registrationImage,
   }) async {
-    print("AmbulanceFirestoreService: addAmbulance Function");
+    print('AmbulanceFirestoreService: addAmbulance Function');
     bool vehicleAlreadyExists = false;
     try {
       await FirebaseFirestore.instance
@@ -20,14 +20,14 @@ class AmbulanceFirestoreService {
           .where('plateNumber', isEqualTo: plateNumber)
           .get()
           .then((QuerySnapshot querySnapshot) {
-        querySnapshot.docs.forEach((doc) {
-          print("Vehicle with the plate number found");
+        for (final doc in querySnapshot.docs) {
+          print('Vehicle with the plate number found');
           vehicleAlreadyExists = true;
           CustomSnackBar.snackBarTrigger(
             context: AppContextManager.getAppContext(),
             message: 'Vehicle with this plate number exists',
           );
-        });
+        }
       });
       if (vehicleAlreadyExists) {
         return false;
@@ -43,7 +43,7 @@ class AmbulanceFirestoreService {
             .doc(plateNumber)
             .set(userMap)
             .catchError((e) {
-          print(e.toString());
+          print(e);
           throw e.toString();
         });
 
@@ -55,15 +55,12 @@ class AmbulanceFirestoreService {
   }
 
   Future<List<Ambulance>> getAllAmbulances() async {
-    print("AmbulanceFirestoreService: getAllAmbulances Function");
+    print('AmbulanceFirestoreService: getAllAmbulances Function');
     try {
-      var map = await FirebaseFirestore.instance
-          .collection(collectionName)
-          .snapshots();
-      CollectionReference _collectionRef =
+      final CollectionReference collectionRef =
           FirebaseFirestore.instance.collection(collectionName);
 
-      QuerySnapshot querySnapshot = await _collectionRef.get();
+      final QuerySnapshot querySnapshot = await collectionRef.get();
 
       // Get data from docs and convert map to List
       final allData = querySnapshot.docs.map((doc) {
@@ -73,12 +70,12 @@ class AmbulanceFirestoreService {
       print(allData);
 
       List<Ambulance> allAmbulances = [];
-      allData.forEach((item) {
+      for (final item in allData) {
         final singleAmbulance = item as Map<String, dynamic>;
 
         allAmbulances.add(Ambulance.fromJson(singleAmbulance));
-      });
-      print("allAmbulances: ${allAmbulances.length}");
+      }
+      print('allAmbulances: ${allAmbulances.length}');
       return allAmbulances;
     } catch (e) {
       throw e.toString();
@@ -86,7 +83,7 @@ class AmbulanceFirestoreService {
   }
 
   Future<bool> deleteAmbulance(String plateNumber) async {
-    print("AmbulanceFirestoreService: deleteGoal Function");
+    print('AmbulanceFirestoreService: deleteGoal Function');
     try {
       await FirebaseFirestore.instance
           .collection(collectionName)

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../admin_module/ambulance/ambulance_list.dart';
 import '../admin_module/ambulance/register_ambulance.dart';
+import '../admin_module/hospital/hospital_list.dart';
+import '../admin_module/hospital/register_hospital.dart';
 import '../customer_module/customer_home/customer_main_screen.dart';
 import '../customer_module/register_customer.dart';
 import '../driver_module/register_driver.dart';
@@ -23,8 +25,16 @@ final Map<String, Widget Function(BuildContext)> routes = {
       const AmbulanceListScreen(),
   RegisterAmbulanceScreen.routeName: (BuildContext ctx) =>
       const RegisterAmbulanceScreen(),
+  HospitalListScreen.routeName: (BuildContext ctx) =>
+      const HospitalListScreen(),
+  RegisterHospitalScreen.routeName: (BuildContext ctx) =>
+      const RegisterHospitalScreen(),
 
   //Customer Screens
   CustomerMainScreen.routeName: (BuildContext ctx) =>
       const CustomerMainScreen(),
+
+  //Driver Screens
+  // OrderTrackingMainScreen.routeName: (BuildContext ctx) =>
+  //     const OrderTrackingMainScreen()
 };

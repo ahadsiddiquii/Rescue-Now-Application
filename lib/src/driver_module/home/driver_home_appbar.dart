@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../config/screen_config.dart';
-import '../../../generic_widgets/add_height.dart';
-import '../../../generic_widgets/text_widget.dart';
-import '../../../resources/blocs/master_blocs/user_resources/user_bloc.dart';
-import '../../../ui_config/decoration_constants.dart';
+import '../../config/screen_config.dart';
+import '../../generic_widgets/add_height.dart';
+import '../../generic_widgets/text_widget.dart';
+import '../../resources/blocs/master_blocs/user_resources/user_bloc.dart';
+import '../../ui_config/decoration_constants.dart';
 
 void appBarCrossFunction(BuildContext context) {
   Navigator.pop(context);
 }
 
-class CustomerHomeAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomerHomeAppBar(
+class DriverHomeAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const DriverHomeAppBar(
       {this.onTap, this.elevation, this.leadingWidth, Key? key})
       : super(key: key);
 
@@ -23,13 +23,13 @@ class CustomerHomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double? leadingWidth;
 
   @override
-  State<CustomerHomeAppBar> createState() => _CustomerHomeAppBarState();
+  State<DriverHomeAppBar> createState() => _DriverHomeAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 20);
 }
 
-class _CustomerHomeAppBarState extends State<CustomerHomeAppBar> {
+class _DriverHomeAppBarState extends State<DriverHomeAppBar> {
   Widget titleDecision() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -34,10 +34,8 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
   Widget build(BuildContext context) {
     AppContextManager.setAppContext(context);
     return Scaffold(
-      appBar: RescueNowAppBar(
+      appBar: const RescueNowAppBar(
         titleText: 'Ambulance',
-        centerTitle: true,
-        showActions: false,
         isHamburger: false,
         showBackButton: true,
       ),
@@ -52,7 +50,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
         child: BlocBuilder<RetrieveAmbulancesBloc, RetrieveAmbulancesState>(
           builder: (context, state) {
             if (state is RetrievingAmbulances) {
-              return Center(
+              return const Center(
                 child: RescueNowCircularProgressIndicator(),
               );
             }
@@ -63,8 +61,6 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                 itemBuilder: (context, i) {
                   return Card(
                     color: DecorationConstants.kAppBarColor,
-                    // height: 120,
-                    // width: 120,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

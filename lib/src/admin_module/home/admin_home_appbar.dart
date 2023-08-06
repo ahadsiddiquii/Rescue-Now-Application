@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../config/screen_config.dart';
-import '../../../generic_widgets/add_height.dart';
-import '../../../generic_widgets/text_widget.dart';
-import '../../../resources/blocs/master_blocs/user_resources/user_bloc.dart';
-import '../../../ui_config/decoration_constants.dart';
+import '../../config/screen_config.dart';
+import '../../generic_widgets/add_height.dart';
+import '../../generic_widgets/text_widget.dart';
+import '../../ui_config/decoration_constants.dart';
 
 void appBarCrossFunction(BuildContext context) {
   Navigator.pop(context);
 }
 
-class CustomerHomeAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomerHomeAppBar(
+class AdminHomeAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const AdminHomeAppBar(
       {this.onTap, this.elevation, this.leadingWidth, Key? key})
       : super(key: key);
 
@@ -23,13 +21,13 @@ class CustomerHomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double? leadingWidth;
 
   @override
-  State<CustomerHomeAppBar> createState() => _CustomerHomeAppBarState();
+  State<AdminHomeAppBar> createState() => _AdminHomeAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 20);
 }
 
-class _CustomerHomeAppBarState extends State<CustomerHomeAppBar> {
+class _AdminHomeAppBarState extends State<AdminHomeAppBar> {
   Widget titleDecision() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,22 +42,12 @@ class _CustomerHomeAppBarState extends State<CustomerHomeAppBar> {
           maxLines: 1,
         ),
         AddHeight(DecorationConstants.kWidgetDistanceHeight - 0.01),
-        BlocBuilder<UserBloc, UserState>(
-          builder: (context, state) {
-            if (state is UserLoggedIn && state.user.fullName != null) {
-              return RescueNowText(
-                state.user.fullName!.length > 20
-                    ? '${state.user.fullName!.substring(0, 19)}...'
-                    : state.user.fullName!,
-                style: ScreenConfig.theme.textTheme.displayMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-                maxLines: 2,
-              );
-            } else {
-              return const SizedBox();
-            }
-          },
+        RescueNowText(
+          'Admin',
+          style: ScreenConfig.theme.textTheme.displayMedium!.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+          maxLines: 2,
         ),
       ],
     );

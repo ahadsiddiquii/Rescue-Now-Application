@@ -13,13 +13,13 @@ part 'retrieve_ambulances_state.dart';
 class RetrieveAmbulancesBloc
     extends Bloc<RetrieveAmbulancesEvent, RetrieveAmbulancesState> {
   RetrieveAmbulancesBloc() : super(RetrieveAmbulancesInitial()) {
-    final AmbulanceFirestoreService _ambulanceFirestoreService =
+    final AmbulanceFirestoreService ambulanceFirestoreService =
         AmbulanceFirestoreService();
     on<GetAllAmbulances>((event, emit) async {
       try {
         emit(RetrievingAmbulances());
         final List<Ambulance> allAmbulances =
-            await _ambulanceFirestoreService.getAllAmbulances();
+            await ambulanceFirestoreService.getAllAmbulances();
 
         CustomSnackBar.snackBarTrigger(
           context: AppContextManager.getAppContext(),

@@ -9,11 +9,13 @@ class AdminDecoratedContainer extends StatelessWidget {
     Key? key,
     this.animatedDecoration = false,
     this.child,
+    this.backgroundColor = const Color.fromARGB(255, 253, 204, 209),
     required this.onTap,
   }) : super(key: key);
   final bool animatedDecoration;
   final Widget? child;
   final VoidCallback onTap;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +32,11 @@ class AdminDecoratedContainer extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5), // Shadow color
                     spreadRadius: 2, // Spread radius of the shadow
                     blurRadius: 5, // Blur radius of the shadow
-                    offset: Offset(3, 5), // Offset of the shadow
+                    offset: const Offset(3, 5), // Offset of the shadow
                   ),
                 ],
                 color: Colors.blue.shade100,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(
                       10), // Custom radius for the top-left corner
                   topRight: Radius.circular(
@@ -51,11 +53,11 @@ class AdminDecoratedContainer extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5), // Shadow color
                     spreadRadius: 2, // Spread radius of the shadow
                     blurRadius: 5, // Blur radius of the shadow
-                    offset: Offset(-3, 5), // Offset of the shadow
+                    offset: const Offset(-3, 5), // Offset of the shadow
                   ),
                 ],
-                color: Colors.red.shade100,
-                borderRadius: BorderRadius.all(
+                color: backgroundColor,
+                borderRadius: const BorderRadius.all(
                   Radius.circular(10), // Custom radius for the top-left corner
                 ),
               ),
@@ -64,7 +66,7 @@ class AdminDecoratedContainer extends StatelessWidget {
                 '${DecorationConstants.animationPath}car_moving.json',
                 repeat: true,
               )
-            : child ?? SizedBox(),
+            : child ?? const SizedBox(),
       ),
     );
   }

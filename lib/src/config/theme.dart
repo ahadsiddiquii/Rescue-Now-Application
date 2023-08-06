@@ -12,9 +12,9 @@ final theme = ThemeData(
   buttonTheme: ButtonThemeData(buttonColor: DecorationConstants.kButtonColor),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      primary: DecorationConstants.kButtonColor,
-      shape: StadiumBorder(),
-      side: BorderSide(
+      foregroundColor: DecorationConstants.kButtonColor,
+      shape: const StadiumBorder(),
+      side: const BorderSide(
         color: DecorationConstants.kThemeColor,
       ),
       padding: const EdgeInsets.symmetric(
@@ -25,31 +25,30 @@ final theme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-    primary: DecorationConstants.kButtonColor,
+    backgroundColor: DecorationConstants.kButtonColor,
   )),
   primaryColor: DecorationConstants.themeColor,
   appBarTheme: const AppBarTheme(elevation: 0),
   scaffoldBackgroundColor: Colors.white,
-  backgroundColor: Colors.white,
   fontFamily: 'Gilroy',
-  textTheme: TextTheme(
-    headline1:
+  textTheme: const TextTheme(
+    displayLarge:
         TextStyle(fontSize: 38.0, color: DecorationConstants.kPrimaryTextColor),
-    headline2:
+    displayMedium:
         TextStyle(fontSize: 24.0, color: DecorationConstants.kPrimaryTextColor),
-    headline3:
+    displaySmall:
         TextStyle(fontSize: 22.0, color: DecorationConstants.kPrimaryTextColor),
-    headline4:
+    headlineMedium:
         TextStyle(fontSize: 18, color: DecorationConstants.kPrimaryTextColor),
-    headline5:
+    headlineSmall:
         TextStyle(fontSize: 16, color: DecorationConstants.kPrimaryTextColor),
-    headline6:
+    titleLarge:
         TextStyle(fontSize: 14.0, color: DecorationConstants.kPrimaryTextColor),
-    bodyText1: const TextStyle(fontSize: 12.0),
-    bodyText2: const TextStyle(fontSize: 10.0),
-    button: const TextStyle(fontSize: 12),
+    bodyLarge: TextStyle(fontSize: 12.0),
+    bodyMedium: TextStyle(fontSize: 10.0),
+    labelLarge: TextStyle(fontSize: 12),
     // caption: TextStyle(fontSize: 20),
-    overline: const TextStyle(
+    labelSmall: TextStyle(
         fontSize: 16,
         letterSpacing: 0,
         fontWeight: FontWeight.bold,
@@ -84,5 +83,7 @@ final theme = ThemeData(
   pageTransitionsTheme: const PageTransitionsTheme(builders: {
     TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
   }),
-  colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.grey[300]),
+  colorScheme: ColorScheme.fromSwatch()
+      .copyWith(secondary: Colors.grey[300])
+      .copyWith(background: Colors.white),
 );
