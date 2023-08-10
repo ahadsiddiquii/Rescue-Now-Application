@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../config/screen_config.dart';
 import '../../generic_widgets/add_height.dart';
 import '../../generic_widgets/circular_progress_indicator.dart';
-import '../../generic_widgets/custom_snackbar.dart';
 import '../../generic_widgets/text_widget.dart';
 import '../../resources/app_context_manager.dart';
 import '../../resources/blocs/master_blocs/user_resources/user_provider_helper.dart';
 import '../../resources/blocs/order_resources/order_bloc.dart';
 import '../../ui_config/decoration_constants.dart';
+import '../insert_order/insert_order_first_screen.dart';
 import 'customer_home_widgets/customer_home_appbar.dart';
 import 'customer_home_widgets/navigation_card.dart';
 import 'customer_home_widgets/sos_display.dart';
@@ -106,14 +106,22 @@ class _OrderInsertWidgets extends StatelessWidget {
                   'If you have time and you want to specify emergency details.',
               text: 'Navigate by tapping here',
               onTap: () {
-                CustomSnackBar.snackBarTrigger(
-                  context: context,
-                  message: 'Coming Soon',
-                );
-                // Navigator.pushNamed(
-                //   context,
-                //   InsertOrderFirstScreen.routeName,
+                // CustomSnackBar.snackBarTrigger(
+                //   context: context,
+                //   message: 'Coming Soon',
                 // );
+                final String? userId =
+                    UserProviderHelper.getUserIdFromState(context);
+                if (userId != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => InsertOrderFirstScreen(
+                        userId: userId,
+                      ),
+                    ),
+                  );
+                }
               },
             ),
             AddHeight(

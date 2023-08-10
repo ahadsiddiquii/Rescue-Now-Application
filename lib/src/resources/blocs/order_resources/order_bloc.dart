@@ -86,6 +86,41 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         emit(OrderInitial());
       }
     });
+    on<InsertNormalOrder>((event, emit) async {
+      try {
+        emit(OrderLoading());
+
+        final bool isOrderAdded = await orderFirestoreService.insertOrder(
+          emergencyLevel: event.emergencyLevel,
+          reason: event.stress,
+          pickUpLat: event.currentLat,
+          pickUpLong: event.currentLong,
+          hospitalName: event.hospital.placeName,
+          dropOffLat: event.hospital.placeLatitude,
+          dropoffLong: event.hospital.placeLongitude,
+          customerId: event.customerId,
+        );
+        if (isOrderAdded) {
+          CustomSnackBar.snackBarTrigger(
+            context: AppContextManager.getAppContext(),
+            message: 'Ambulance will soon reach out to you. Be safe.',
+          );
+          emit(OrderAdded());
+        } else {
+          CustomSnackBar.snackBarTrigger(
+            context: AppContextManager.getAppContext(),
+            message: CustomExceptionHandler.getError500(),
+          );
+          emit(OrderInitial());
+        }
+      } catch (e) {
+        CustomSnackBar.snackBarTrigger(
+          context: AppContextManager.getAppContext(),
+          message: CustomExceptionHandler.getError500(),
+        );
+        emit(OrderInitial());
+      }
+    });
     on<SetOrderBlocToInitial>((event, emit) async {
       emit(OrderInitial());
     });

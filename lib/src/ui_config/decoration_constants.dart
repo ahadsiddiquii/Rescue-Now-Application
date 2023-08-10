@@ -96,4 +96,15 @@ class DecorationConstants {
     //   ),
     // ],
   );
+  static BoxDecoration containerDecorationCondition = BoxDecoration(
+    borderRadius: BorderRadius.circular(12),
+    color: Colors.white,
+    boxShadow: [
+      BoxShadow(
+        color: DecorationConstants.kDropShadowColor.withOpacity(0.3),
+        blurRadius: 2,
+        offset: const Offset(0, 2),
+      ),
+    ],
+  );
 }
