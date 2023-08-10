@@ -5,6 +5,8 @@ import 'config/routes.dart';
 import 'config/theme.dart';
 import 'master_ui_module/splash_screen.dart';
 import 'resources/blocs/ambulance_resources/ambulance_bloc.dart';
+import 'resources/blocs/customer_bookings/customer_bookings_bloc.dart';
+import 'resources/blocs/driver_bookings_resources/driver_bookings_bloc.dart';
 import 'resources/blocs/driver_current_job_resources/driver_current_job_bloc.dart';
 import 'resources/blocs/hospital_resources/hospital_bloc.dart';
 import 'resources/blocs/master_blocs/user_resources/user_bloc.dart';
@@ -49,6 +51,12 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (BuildContext context) => DriverCurrentJobBloc(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => CustomerBookingsBloc(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => DriverBookingsBloc(),
         ),
       ],
       child: GestureDetector(

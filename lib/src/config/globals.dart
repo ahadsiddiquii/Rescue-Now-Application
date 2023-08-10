@@ -17,6 +17,10 @@ import 'local_storage.dart';
 
 class Globals {
   static void mainScreenNavigationWhenNotLoggedIn(BuildContext context) {
+    BlocProvider.of<NavigationBarBloc>(context).add(ChangeScreenInNavigationBar(
+      indexOfItem: 0,
+      role: 'Driver',
+    ));
     Navigator.pushNamedAndRemoveUntil(
       context,
       MainScreen.routeName,

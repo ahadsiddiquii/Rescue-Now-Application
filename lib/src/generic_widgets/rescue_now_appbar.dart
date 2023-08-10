@@ -23,6 +23,7 @@ class RescueNowAppBar extends StatefulWidget implements PreferredSizeWidget {
       this.automaticallyImplyLeading = false,
       this.showActions = false,
       this.onBackTap,
+      this.backgroundColor = Colors.white,
       Key? key})
       : super(key: key);
 
@@ -39,6 +40,7 @@ class RescueNowAppBar extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback? onBackTap;
   final bool showActions;
   final bool automaticallyImplyLeading;
+  final Color backgroundColor;
 
   @override
   State<RescueNowAppBar> createState() => _RescueNowAppBarState();
@@ -60,7 +62,7 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
     }
     return RescueNowText(
       widget.titleText!,
-      style: ScreenConfig.theme.textTheme.headline2!.copyWith(
+      style: ScreenConfig.theme.textTheme.displayMedium!.copyWith(
         fontWeight: FontWeight.w600,
       ),
       maxLines: 2,
@@ -73,7 +75,7 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
       automaticallyImplyLeading: false,
       leadingWidth: widget.leadingWidth,
 
-      backgroundColor: DecorationConstants.kAppBarColor,
+      backgroundColor: widget.backgroundColor,
       title: titleDecision(),
       centerTitle: widget.centerTitle,
       //  showHomeButton != null || showHomeButton == false ? true : null,
@@ -81,14 +83,13 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
       actions: widget.showActions
           ? [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: InkWell(
                     customBorder: const CircleBorder(),
-                    onTap: widget.onTap != null
-                        ? widget.onTap
-                        : () {
-                            appBarCrossFunction(context);
-                          },
+                    onTap: widget.onTap ??
+                        () {
+                          appBarCrossFunction(context);
+                        },
                     child: Icon(
                       widget.isHamburger
                           ? Icons.menu_rounded
@@ -105,17 +106,15 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
               padding: const EdgeInsets.only(bottom: 5.0),
               child: InkWell(
                 customBorder: const CircleBorder(),
-                onTap: widget.onBackTap == null
-                    ? () => Navigator.of(context).pop()
-                    : widget.onBackTap,
-                child: Icon(
+                onTap: widget.onBackTap ?? () => Navigator.of(context).pop(),
+                child: const Icon(
                   Icons.arrow_back_ios_new_rounded,
                   color: DecorationConstants.kPrimaryTextColor,
                   size: 28,
                 ),
               ),
             )
-          : SizedBox(),
+          : const SizedBox(),
     );
   }
 }

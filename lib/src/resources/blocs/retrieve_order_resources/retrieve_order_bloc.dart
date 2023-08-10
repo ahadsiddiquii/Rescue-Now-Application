@@ -32,6 +32,20 @@ class RetrieveOrderBloc extends Bloc<RetrieveOrderEvent, RetrieveOrderState> {
         emit(RetrieveOrderInitial());
       }
     });
+    on<RefreshAllUnAcceptedOrders>((event, emit) async {
+      try {
+        final List<Emergency> allOrders =
+            await orderFirestoreService.getAllUnacceptedOrders();
+
+        emit(RetrievedAllUnAcceptedOrders(allOrdersList: allOrders));
+      } catch (e) {
+        CustomSnackBar.snackBarTrigger(
+          context: AppContextManager.getAppContext(),
+          message: CustomExceptionHandler.getError500(),
+        );
+        emit(RetrieveOrderInitial());
+      }
+    });
     on<SetRetrieveOrderBlocToInitial>((event, emit) async {
       emit(RetrieveOrderInitial());
     });

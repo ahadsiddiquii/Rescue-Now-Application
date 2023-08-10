@@ -39,3 +39,10 @@ class GetUpdatedCurrentOrder extends DriverCurrentJobEvent {
 }
 
 class SetDriverCurrentJobBlocToInitial extends DriverCurrentJobEvent {}
+
+class ChangeJobState extends DriverCurrentJobEvent {
+  ChangeJobState({
+    required this.currentJobState,
+  });
+  final DriverCurrentJobState currentJobState;
+}

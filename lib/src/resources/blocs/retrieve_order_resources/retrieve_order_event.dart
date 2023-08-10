@@ -5,4 +5,6 @@ abstract class RetrieveOrderEvent {}
 
 class GetAllUnAcceptedOrders extends RetrieveOrderEvent {}
 
+class RefreshAllUnAcceptedOrders extends RetrieveOrderEvent {}
+
 class SetRetrieveOrderBlocToInitial extends RetrieveOrderEvent {}

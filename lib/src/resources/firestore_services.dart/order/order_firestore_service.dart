@@ -14,11 +14,13 @@ class OrderFirestoreService {
     required String hospitalName,
     required double dropOffLat,
     required double dropoffLong,
+    required String customerId,
   }) async {
     print('OrderFirestoreService: insertOrder Function');
     final String orderId = const Uuid().v1();
     try {
       final Map<String, dynamic> orderMap = {
+        'customerId': customerId,
         'orderId': orderId,
         'isAccepted': false,
         'emergencyLevel': emergencyLevel,
@@ -75,6 +77,66 @@ class OrderFirestoreService {
     }
   }
 
+  Future<List<Emergency>> getAllCustomerOrders({required String userId}) async {
+    print('OrderFirestoreService: getAllCustomerOrders Function');
+    try {
+      final CollectionReference collectionRef =
+          FirebaseFirestore.instance.collection(collectionName);
+
+      final QuerySnapshot querySnapshot = await collectionRef.get();
+
+      // Get data from docs and convert map to List
+      final allData = querySnapshot.docs.map((doc) {
+        return doc.data();
+      }).toList();
+
+      print(allData);
+
+      List<Emergency> allOrders = [];
+      for (final item in allData) {
+        final singleOrder = item as Map<String, dynamic>;
+        if (userId == item['customerId']) {
+          allOrders.add(Emergency.fromJson(singleOrder));
+        }
+      }
+      print('allOrders: ${allOrders.length}');
+      return allOrders;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<List<Emergency>> getAllDriverOrders({required String userId}) async {
+    print('OrderFirestoreService: getAllDriverOrders Function');
+    try {
+      final CollectionReference collectionRef =
+          FirebaseFirestore.instance.collection(collectionName);
+
+      final QuerySnapshot querySnapshot = await collectionRef.get();
+
+      // Get data from docs and convert map to List
+      final allData = querySnapshot.docs.map((doc) {
+        return doc.data();
+      }).toList();
+
+      print(allData);
+
+      List<Emergency> allOrders = [];
+      for (final item in allData) {
+        final singleOrder = item as Map<String, dynamic>;
+        if (item['isAccepted'] == true) {
+          if (userId == item['job']['driverId']) {
+            allOrders.add(Emergency.fromJson(singleOrder));
+          }
+        }
+      }
+      print('allDriverOrders: ${allOrders.length}');
+      return allOrders;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
   Future<Emergency> acceptJob({
     required Emergency acceptedOrder,
     required String driverId,
@@ -85,6 +147,7 @@ class OrderFirestoreService {
       final String jobId = const Uuid().v1();
       Map<String, dynamic> orderMap = {
         'orderId': acceptedOrder.id,
+        'customerId': acceptedOrder.customerId,
         'isAccepted': true,
         'emergencyLevel': acceptedOrder.emergencyLevel,
         'reason': acceptedOrder.reason,
@@ -131,6 +194,7 @@ class OrderFirestoreService {
     try {
       Map<String, dynamic> orderMap = {
         'orderId': acceptedOrder.id,
+        'customerId': acceptedOrder.customerId,
         'isAccepted': acceptedOrder.isAccepted,
         'emergencyLevel': acceptedOrder.emergencyLevel,
         'reason': acceptedOrder.reason,
@@ -182,6 +246,7 @@ class OrderFirestoreService {
           orderFound = true;
           Map<String, dynamic> orderMap = {
             'orderId': doc['orderId'],
+            'customerId': doc['customerId'],
             'isAccepted': doc['isAccepted'],
             'emergencyLevel': doc['emergencyLevel'],
             'reason': doc['reason'],
@@ -190,15 +255,19 @@ class OrderFirestoreService {
             'hospitalName': doc['hospitalName'],
             'dropOffLat': doc['dropOffLat'],
             'dropoffLong': doc['dropoffLong'],
-            'job': {
-              'id': doc['job']['id'],
-              'driverId': doc['job']['driverId'],
-              'onPickupLocation': doc['job']['onPickupLocation'],
-              'onTripToDropoff': doc['job']['onTripToDropoff'],
-              'onDropoffLocation': doc['job']['onDropoffLocation'],
-              'isDelivered': doc['job']['isDelivered'],
-            }
           };
+          if (doc['isAccepted'] == true) {
+            orderMap.addAll({
+              'job': {
+                'id': doc['job']['id'],
+                'driverId': doc['job']['driverId'],
+                'onPickupLocation': doc['job']['onPickupLocation'],
+                'onTripToDropoff': doc['job']['onTripToDropoff'],
+                'onDropoffLocation': doc['job']['onDropoffLocation'],
+                'isDelivered': doc['job']['isDelivered'],
+              }
+            });
+          }
           order = Emergency.fromJson(orderMap);
         }
       });

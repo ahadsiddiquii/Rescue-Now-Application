@@ -13,6 +13,7 @@ String orderToJson(Emergency data) => json.encode(data.toJson());
 class Emergency {
   Emergency({
     required this.id,
+    required this.customerId,
     required this.isAccepted,
     required this.emergencyLevel,
     required this.reason,
@@ -26,6 +27,7 @@ class Emergency {
 
   factory Emergency.fromJson(Map<String, dynamic> json) => Emergency(
         id: json['orderId'],
+        customerId: json['customerId'],
         isAccepted: json['isAccepted'],
         emergencyLevel: json['emergencyLevel'],
         reason: json['reason'],
@@ -37,7 +39,7 @@ class Emergency {
         job: json['job'] != null ? Job.fromJson(json['job']) : null,
       );
   String id;
-
+  String customerId;
   bool isAccepted;
   String emergencyLevel;
   String reason;
@@ -50,6 +52,7 @@ class Emergency {
 
   Map<String, dynamic> toJson() => {
         'orderId': id,
+        'customerId': customerId,
         'isAccepted': isAccepted,
         'emergencyLevel': emergencyLevel,
         'reason': reason,

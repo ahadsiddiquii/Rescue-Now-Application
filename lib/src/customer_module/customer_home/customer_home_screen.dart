@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../config/screen_config.dart';
 import '../../generic_widgets/add_height.dart';
-import '../../generic_widgets/initial_padding.dart';
+import '../../generic_widgets/circular_progress_indicator.dart';
+import '../../generic_widgets/custom_snackbar.dart';
 import '../../generic_widgets/text_widget.dart';
 import '../../resources/app_context_manager.dart';
+import '../../resources/blocs/master_blocs/user_resources/user_provider_helper.dart';
 import '../../resources/blocs/order_resources/order_bloc.dart';
 import '../../ui_config/decoration_constants.dart';
 import 'customer_home_widgets/customer_home_appbar.dart';
+import 'customer_home_widgets/navigation_card.dart';
 import 'customer_home_widgets/sos_display.dart';
 
 class CustomerHomeScreen extends StatelessWidget {
@@ -20,8 +23,8 @@ class CustomerHomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: const CustomerHomeAppBar(),
-      body: InitScreen(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               AddHeight(
@@ -36,6 +39,7 @@ class CustomerHomeScreen extends StatelessWidget {
                         color: Colors.black,
                       ),
                   textAlign: TextAlign.center,
+                  forceStrutHeight: false,
                 ),
               ),
               AddHeight(
@@ -55,18 +59,69 @@ class CustomerHomeScreen extends StatelessWidget {
               AddHeight(
                 DecorationConstants.kWidgetDistanceHeight - 0.01,
               ),
-              SosDisplay(
-                onTap: () {
-                  BlocProvider.of<OrderBloc>(context).add(
-                    InsertEmergencyOrder(
-                        emergencyLevel: 'MAX', stress: 'Unknown'),
-                  );
-                },
+              const _OrderInsertWidgets(),
+              AddHeight(
+                DecorationConstants.kWidgetDistanceHeight - 0.01,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _OrderInsertWidgets extends StatelessWidget {
+  const _OrderInsertWidgets({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<OrderBloc, OrderState>(
+      builder: (context, orderBlocState) {
+        if (orderBlocState is OrderLoading) {
+          return const RescueNowCircularProgressIndicator();
+        }
+        return Column(
+          children: [
+            SosDisplay(
+              onTap: () {
+                AppContextManager.setAppContext(context);
+                final String? userId =
+                    UserProviderHelper.getUserIdFromState(context);
+                if (userId != null) {
+                  BlocProvider.of<OrderBloc>(context).add(
+                    InsertEmergencyOrder(
+                        customerId: userId,
+                        emergencyLevel: 'MAX',
+                        stress: 'Unknown'),
+                  );
+                }
+              },
+            ),
+            AddHeight(
+              DecorationConstants.kWidgetDistanceHeight,
+            ),
+            NavigationCard(
+              title:
+                  'If you have time and you want to specify emergency details.',
+              text: 'Navigate by tapping here',
+              onTap: () {
+                CustomSnackBar.snackBarTrigger(
+                  context: context,
+                  message: 'Coming Soon',
+                );
+                // Navigator.pushNamed(
+                //   context,
+                //   InsertOrderFirstScreen.routeName,
+                // );
+              },
+            ),
+            AddHeight(
+              DecorationConstants.kWidgetDistanceHeight - 0.01,
+            ),
+          ],
+        );
+      },
     );
   }
 }

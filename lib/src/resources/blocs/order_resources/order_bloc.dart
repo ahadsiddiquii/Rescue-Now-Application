@@ -55,6 +55,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
               hospitalName: goingToHospital.placeName,
               dropOffLat: goingToHospital.placeLatitude,
               dropoffLong: goingToHospital.placeLongitude,
+              customerId: event.customerId,
             );
             if (isOrderAdded) {
               CustomSnackBar.snackBarTrigger(

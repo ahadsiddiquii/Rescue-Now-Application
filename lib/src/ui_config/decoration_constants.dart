@@ -84,4 +84,16 @@ class DecorationConstants {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
+
+  static BoxDecoration containerDecoration = BoxDecoration(
+    borderRadius: BorderRadius.circular(12),
+    color: Colors.white,
+    // boxShadow: [
+    //   BoxShadow(
+    //     color: DecorationConstants.kDropShadowColor.withOpacity(0.3),
+    //     blurRadius: 2,
+    //     offset: const Offset(0, 2),
+    //   ),
+    // ],
+  );
 }

@@ -11,10 +11,14 @@ class CustomSnackBar {
     required BuildContext context,
     required String message,
   }) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(_showSnackbar(
-      message,
-    ));
+    try {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(_showSnackbar(
+        message,
+      ));
+    } catch (e) {
+      print(e);
+    }
   }
 
   static SnackBar _showSnackbar(

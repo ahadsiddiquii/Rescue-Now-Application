@@ -91,5 +91,9 @@ class DriverCurrentJobBloc
     on<SetDriverCurrentJobBlocToInitial>((event, emit) async {
       emit(DriverCurrentJobInitial());
     });
+
+    on<ChangeJobState>((event, emit) async {
+      emit(event.currentJobState);
+    });
   }
 }

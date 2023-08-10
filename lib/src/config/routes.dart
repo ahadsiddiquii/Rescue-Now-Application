@@ -5,6 +5,7 @@ import '../admin_module/ambulance/register_ambulance.dart';
 import '../admin_module/hospital/hospital_list.dart';
 import '../admin_module/hospital/register_hospital.dart';
 import '../customer_module/customer_home/customer_main_screen.dart';
+import '../customer_module/insert_order/insert_order_first_screen.dart';
 import '../customer_module/register_customer.dart';
 import '../driver_module/register_driver.dart';
 import '../master_ui_module/main_screen/main_screen.dart';
@@ -33,6 +34,8 @@ final Map<String, Widget Function(BuildContext)> routes = {
   //Customer Screens
   CustomerMainScreen.routeName: (BuildContext ctx) =>
       const CustomerMainScreen(),
+  InsertOrderFirstScreen.routeName: (BuildContext ctx) =>
+      const InsertOrderFirstScreen(),
 
   //Driver Screens
   // OrderTrackingMainScreen.routeName: (BuildContext ctx) =>
