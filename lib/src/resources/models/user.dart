@@ -2,7 +2,17 @@ import 'dart:convert';
 
 class UserRoles {
   UserRoles._();
-  static List<String> userRolesList = const ['Customer', 'Driver', 'Admin'];
+  static List<String> userRolesList = const [
+    'Patient',
+    'Ambulance Driver',
+    'Admin'
+  ];
+
+  static Map<String, String> userRolesDatabaseMap = {
+    'Patient': 'Customer',
+    'Ambulance Driver': 'Driver',
+    'Admin': 'Admin',
+  };
 }
 
 User userFromJson(String str) =>

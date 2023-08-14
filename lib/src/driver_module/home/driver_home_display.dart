@@ -14,6 +14,7 @@ import '../../resources/app_context_manager.dart';
 import '../../resources/blocs/driver_current_job_resources/driver_current_job_bloc.dart';
 import '../../resources/blocs/driver_current_job_resources/driver_current_job_helper.dart';
 import '../../resources/blocs/master_blocs/user_resources/user_bloc.dart';
+import '../../resources/blocs/master_blocs/user_resources/user_provider_helper.dart';
 import '../../resources/blocs/retrieve_order_resources/retrieve_order_bloc.dart';
 import '../../ui_config/decoration_constants.dart';
 
@@ -30,19 +31,26 @@ class _DriverHomeDisplayState extends State<DriverHomeDisplay> {
   void initState() {
     super.initState();
     AppContextManager.setAppContext(context);
-    BlocProvider.of<RetrieveOrderBloc>(context).add(
-      GetAllUnAcceptedOrders(),
-    );
-
-    timer = Timer.periodic(
-        const Duration(
-          seconds: 3,
-        ), (timer) {
-      print('Timer Home here');
+    final String? driverId = UserProviderHelper.getUserIdFromState(context);
+    if (driverId != null) {
       BlocProvider.of<RetrieveOrderBloc>(context).add(
-        RefreshAllUnAcceptedOrders(),
+        GetAllUnAcceptedOrders(
+          driverId: driverId,
+        ),
       );
-    });
+
+      timer = Timer.periodic(
+          const Duration(
+            seconds: 3,
+          ), (timer) {
+        print('Timer Home here');
+        BlocProvider.of<RetrieveOrderBloc>(context).add(
+          RefreshAllUnAcceptedOrders(
+            driverId: driverId,
+          ),
+        );
+      });
+    }
   }
 
   @override
@@ -63,6 +71,17 @@ class _DriverHomeDisplayState extends State<DriverHomeDisplay> {
         BlocBuilder<RetrieveOrderBloc, RetrieveOrderState>(
           builder: (context, state) {
             if (state is RetrievedAllUnAcceptedOrders) {
+              if (state.allOrdersList.isEmpty) {
+                return SizedBox(
+                  height: ScreenConfig.screenSizeHeight * 0.7,
+                  child: Center(
+                    child: RescueNowText(
+                      'No Emergencies Found',
+                      style: ScreenConfig.theme.textTheme.headlineSmall,
+                    ),
+                  ),
+                );
+              }
               return SizedBox(
                 height: ScreenConfig.screenSizeHeight * 0.7,
                 width: ScreenConfig.screenSizeWidth,
@@ -78,19 +97,45 @@ class _DriverHomeDisplayState extends State<DriverHomeDisplay> {
                           if (driverJobState is DriverCurrentJobLoading) {
                             // return const RescueNowCircularProgressIndicator();
                           }
-                          return WideButton(
-                            onPressed: () async {
-                              final userState =
-                                  BlocProvider.of<UserBloc>(context).state;
-                              if (userState is UserLoggedIn) {
-                                await DriverCurrentJobHelper.acceptCurrentJob(
-                                  context,
-                                  currentOrder: state.allOrdersList[i],
-                                  driverId: userState.user.id,
-                                );
-                              }
-                            },
-                            buttonText: 'Accept',
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              WideButton(
+                                buttonWidth:
+                                    ScreenConfig.screenSizeWidth * 0.42,
+                                isTransparent: true,
+                                onPressed: () async {
+                                  final userState =
+                                      BlocProvider.of<UserBloc>(context).state;
+                                  if (userState is UserLoggedIn) {
+                                    await DriverCurrentJobHelper
+                                        .rejectCurrentJob(
+                                      context,
+                                      currentOrder: state.allOrdersList[i],
+                                      driverId: userState.user.id,
+                                    );
+                                  }
+                                },
+                                buttonText: 'Reject',
+                              ),
+                              WideButton(
+                                buttonWidth:
+                                    ScreenConfig.screenSizeWidth * 0.42,
+                                onPressed: () async {
+                                  final userState =
+                                      BlocProvider.of<UserBloc>(context).state;
+                                  if (userState is UserLoggedIn) {
+                                    await DriverCurrentJobHelper
+                                        .acceptCurrentJob(
+                                      context,
+                                      currentOrder: state.allOrdersList[i],
+                                      driverId: userState.user.id,
+                                    );
+                                  }
+                                },
+                                buttonText: 'Accept',
+                              ),
+                            ],
                           );
                         },
                       ),
@@ -107,11 +152,15 @@ class _DriverHomeDisplayState extends State<DriverHomeDisplay> {
                 child: RescueNowCircularProgressIndicator(),
               );
             } else {
-              return Center(
+              return SizedBox(
+                height: ScreenConfig.screenSizeHeight * 0.7,
+                child: Center(
                   child: RescueNowText(
-                'No Emergencies Found',
-                style: ScreenConfig.theme.textTheme.headlineSmall,
-              ));
+                    'No Emergencies Found',
+                    style: ScreenConfig.theme.textTheme.headlineSmall,
+                  ),
+                ),
+              );
             }
           },
         )

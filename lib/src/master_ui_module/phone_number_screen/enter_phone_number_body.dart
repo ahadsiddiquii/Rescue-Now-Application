@@ -7,6 +7,7 @@ import '../../generic_widgets/buttons/wide_button.dart';
 import '../../generic_widgets/initial_padding.dart';
 import '../../generic_widgets/rescue_now_text_field.dart';
 import '../../generic_widgets/text_widget.dart';
+import '../../resources/models/user.dart';
 import '../../ui_config/decoration_constants.dart';
 import '../otp_screen.dart';
 import 'user_role_dropdown.dart';
@@ -22,7 +23,7 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
   final _mobileFormKey = GlobalKey<FormState>();
   bool disableButton = true;
   String phoneNumber = '';
-  String _selectedItem = 'Customer';
+  String _selectedItem = 'Patient';
   TextEditingController phoneNumberController = TextEditingController();
 
   bool showError = false;
@@ -41,7 +42,7 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
       // ignore: always_specify_types
       final Map<String, dynamic> objectsToPass = {
         'userPhoneNumber': mobileNum,
-        'userRole': _selectedItem,
+        'userRole': UserRoles.userRolesDatabaseMap[_selectedItem],
       };
       Navigator.of(context)
           .pushNamed(OtpVerificationScreen.routeName, arguments: objectsToPass);
@@ -51,7 +52,7 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
   Widget _buildOTPText() {
     return RescueNowText(
       'We will send you an OTP on your number for verification',
-      style: Theme.of(context).textTheme.headline5!.copyWith(
+      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: DecorationConstants.kGreySecondaryTextColor,
           ),
     );
@@ -126,7 +127,7 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
               if (showError == true && errorText != null)
                 RescueNowText(
                   errorText!,
-                  style: ScreenConfig.theme.textTheme.headline5,
+                  style: ScreenConfig.theme.textTheme.headlineSmall,
                 ),
             ],
             const AddHeight(0.01),

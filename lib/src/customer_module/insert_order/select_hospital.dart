@@ -7,7 +7,7 @@ import '../../generic_widgets/rescue_now_appbar.dart';
 import '../../generic_widgets/text_widget.dart';
 import '../../resources/blocs/retrieve_hospital_resources/retrieve_hospital_bloc.dart';
 import '../../ui_config/decoration_constants.dart';
-import 'select_location.dart';
+import 'add_ambulance_details.dart';
 
 class SelectHospital extends StatelessWidget {
   const SelectHospital({
@@ -50,7 +50,7 @@ class SelectHospital extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SelectLocation(
+                        builder: (context) => AddAmbulanceDetails(
                           userId: userId,
                           emergencyLevel: emergencyLevel,
                           stress: stress,

@@ -238,6 +238,26 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                             DecorationConstants.kWidgetDistanceHeight,
                           ),
                           RescueNowText(
+                            'Ambulance Details',
+                            style: ScreenConfig.theme.textTheme.headlineSmall
+                                ?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          AddHeight(
+                              DecorationConstants.kWidgetThirdDistanceHeight),
+                          RescueNowText(
+                            'Ambulance Size: ${driverCurrentJobState.currentWorkingOrder.preferredAmbulanceSize}',
+                            style: ScreenConfig.theme.textTheme.headlineSmall,
+                          ),
+                          RescueNowText(
+                            'Is Ambulance Equipped? ${driverCurrentJobState.currentWorkingOrder.preferredAmbulanceEquipment}',
+                            style: ScreenConfig.theme.textTheme.headlineSmall,
+                          ),
+                          AddHeight(
+                            DecorationConstants.kWidgetDistanceHeight,
+                          ),
+                          RescueNowText(
                             'Current Status: ${getCurrentStatus(driverCurrentJobState.currentWorkingOrder)}',
                             style: ScreenConfig.theme.textTheme.headlineMedium
                                 ?.copyWith(
@@ -262,77 +282,85 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                           if (driverJobState is DriverCurrentJobAccepted) {
                             return WideButton(
                               onPressed: () {
-                                if (driverJobState
-                                    .currentWorkingOrder.job!.isDelivered) {
-                                  final String? userId =
-                                      UserProviderHelper.getUserIdFromState(
-                                          context);
-                                  if (userId != null) {
+                                final String? userId =
+                                    UserProviderHelper.getUserIdFromState(
+                                        context);
+                                if (userId != null) {
+                                  if (driverJobState
+                                      .currentWorkingOrder.job!.isDelivered) {
                                     BlocProvider.of<DriverBookingsBloc>(context)
                                         .add(
                                       GetAllDriverOrders(
                                         userid: userId,
                                       ),
                                     );
+
+                                    Navigator.pop(context);
                                   }
-                                  Navigator.pop(context);
-                                }
-                                if (driverJobState.currentWorkingOrder.job!
-                                    .onDropoffLocation) {
+                                  if (driverJobState.currentWorkingOrder.job!
+                                      .onDropoffLocation) {
+                                    BlocProvider.of<DriverCurrentJobBloc>(
+                                            context)
+                                        .add(UpdateCurrentOrder(
+                                      driverId: userId,
+                                      currentOrder: driverCurrentJobState
+                                          .currentWorkingOrder,
+                                      orderId: driverCurrentJobState
+                                          .currentWorkingOrder.id,
+                                      onTripToDropoff: true,
+                                      isDelivered: true,
+                                      onDropoffLocation: true,
+                                      onPickupLocation: true,
+                                    ));
+                                    return;
+                                  }
+                                  if (driverJobState.currentWorkingOrder.job!
+                                      .onTripToDropoff) {
+                                    BlocProvider.of<DriverCurrentJobBloc>(
+                                            context)
+                                        .add(UpdateCurrentOrder(
+                                      driverId: userId,
+                                      currentOrder: driverCurrentJobState
+                                          .currentWorkingOrder,
+                                      orderId: driverCurrentJobState
+                                          .currentWorkingOrder.id,
+                                      onTripToDropoff: true,
+                                      isDelivered: false,
+                                      onDropoffLocation: true,
+                                      onPickupLocation: true,
+                                    ));
+                                    return;
+                                  }
+                                  if (driverJobState.currentWorkingOrder.job!
+                                      .onPickupLocation) {
+                                    BlocProvider.of<DriverCurrentJobBloc>(
+                                            context)
+                                        .add(UpdateCurrentOrder(
+                                      driverId: userId,
+                                      currentOrder: driverCurrentJobState
+                                          .currentWorkingOrder,
+                                      orderId: driverCurrentJobState
+                                          .currentWorkingOrder.id,
+                                      onTripToDropoff: true,
+                                      isDelivered: false,
+                                      onDropoffLocation: false,
+                                      onPickupLocation: true,
+                                    ));
+                                    return;
+                                  }
                                   BlocProvider.of<DriverCurrentJobBloc>(context)
                                       .add(UpdateCurrentOrder(
+                                    driverId: userId,
                                     currentOrder: driverCurrentJobState
                                         .currentWorkingOrder,
                                     orderId: driverCurrentJobState
                                         .currentWorkingOrder.id,
-                                    onTripToDropoff: true,
-                                    isDelivered: true,
-                                    onDropoffLocation: true,
-                                    onPickupLocation: true,
-                                  ));
-                                  return;
-                                }
-                                if (driverJobState
-                                    .currentWorkingOrder.job!.onTripToDropoff) {
-                                  BlocProvider.of<DriverCurrentJobBloc>(context)
-                                      .add(UpdateCurrentOrder(
-                                    currentOrder: driverCurrentJobState
-                                        .currentWorkingOrder,
-                                    orderId: driverCurrentJobState
-                                        .currentWorkingOrder.id,
-                                    onTripToDropoff: true,
-                                    isDelivered: false,
-                                    onDropoffLocation: true,
-                                    onPickupLocation: true,
-                                  ));
-                                  return;
-                                }
-                                if (driverJobState.currentWorkingOrder.job!
-                                    .onPickupLocation) {
-                                  BlocProvider.of<DriverCurrentJobBloc>(context)
-                                      .add(UpdateCurrentOrder(
-                                    currentOrder: driverCurrentJobState
-                                        .currentWorkingOrder,
-                                    orderId: driverCurrentJobState
-                                        .currentWorkingOrder.id,
-                                    onTripToDropoff: true,
+                                    onTripToDropoff: false,
                                     isDelivered: false,
                                     onDropoffLocation: false,
                                     onPickupLocation: true,
                                   ));
-                                  return;
                                 }
-                                BlocProvider.of<DriverCurrentJobBloc>(context)
-                                    .add(UpdateCurrentOrder(
-                                  currentOrder:
-                                      driverCurrentJobState.currentWorkingOrder,
-                                  orderId: driverCurrentJobState
-                                      .currentWorkingOrder.id,
-                                  onTripToDropoff: false,
-                                  isDelivered: false,
-                                  onDropoffLocation: false,
-                                  onPickupLocation: true,
-                                ));
                               },
                               buttonText: getButtonText(
                                   driverCurrentJobState.currentWorkingOrder),

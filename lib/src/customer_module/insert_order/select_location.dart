@@ -23,12 +23,16 @@ class SelectLocation extends StatefulWidget {
     required this.emergencyLevel,
     required this.stress,
     required this.hospital,
+    required this.ambulanceSize,
+    required this.ambulanceEquipped,
   }) : super(key: key);
   static const String routeName = '/select_location_screen';
   final String userId;
   final String emergencyLevel;
   final String stress;
   final Hospital hospital;
+  final String ambulanceSize;
+  final String ambulanceEquipped;
 
   @override
   State<SelectLocation> createState() => _SelectLocationState();
@@ -67,6 +71,8 @@ class _SelectLocationState extends State<SelectLocation> {
           emergencyLevel: widget.emergencyLevel,
           stress: widget.stress,
           hospital: widget.hospital,
+          ambulanceSize: widget.ambulanceSize,
+          ambulanceEquipped: widget.ambulanceEquipped,
           currentLat: _pickedLocation!.latitude,
           currentLong: _pickedLocation!.longitude,
         ),

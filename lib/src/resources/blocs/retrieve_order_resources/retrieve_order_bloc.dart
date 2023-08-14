@@ -17,7 +17,9 @@ class RetrieveOrderBloc extends Bloc<RetrieveOrderEvent, RetrieveOrderState> {
       try {
         emit(RetrievingOrders());
         final List<Emergency> allOrders =
-            await orderFirestoreService.getAllUnacceptedOrders();
+            await orderFirestoreService.getAllUnacceptedOrders(
+          driverid: event.driverId,
+        );
 
         CustomSnackBar.snackBarTrigger(
           context: AppContextManager.getAppContext(),
@@ -35,7 +37,9 @@ class RetrieveOrderBloc extends Bloc<RetrieveOrderEvent, RetrieveOrderState> {
     on<RefreshAllUnAcceptedOrders>((event, emit) async {
       try {
         final List<Emergency> allOrders =
-            await orderFirestoreService.getAllUnacceptedOrders();
+            await orderFirestoreService.getAllUnacceptedOrders(
+          driverid: event.driverId,
+        );
 
         emit(RetrievedAllUnAcceptedOrders(allOrdersList: allOrders));
       } catch (e) {

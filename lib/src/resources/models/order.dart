@@ -22,7 +22,10 @@ class Emergency {
     required this.hospitalName,
     required this.dropOffLat,
     required this.dropoffLong,
+    required this.preferredAmbulanceSize,
+    required this.preferredAmbulanceEquipment,
     required this.job,
+    required this.rejectedByDrivers,
   });
 
   factory Emergency.fromJson(Map<String, dynamic> json) => Emergency(
@@ -36,7 +39,10 @@ class Emergency {
         hospitalName: json['hospitalName'],
         dropOffLat: json['dropOffLat'].toDouble(),
         dropoffLong: json['dropoffLong'].toDouble(),
+        preferredAmbulanceSize: json['preferredAmbulanceSize'] ?? ' ',
+        preferredAmbulanceEquipment: json['preferredAmbulanceEquipment'] ?? ' ',
         job: json['job'] != null ? Job.fromJson(json['job']) : null,
+        rejectedByDrivers: json['rejectedByDrivers'] ?? [],
       );
   String id;
   String customerId;
@@ -48,6 +54,9 @@ class Emergency {
   String hospitalName;
   double dropOffLat;
   double dropoffLong;
+  String preferredAmbulanceSize;
+  String preferredAmbulanceEquipment;
+  List<dynamic> rejectedByDrivers;
   Job? job;
 
   Map<String, dynamic> toJson() => {
@@ -61,6 +70,9 @@ class Emergency {
         'hospitalName': hospitalName,
         'dropOffLat': dropOffLat,
         'dropoffLong': dropoffLong,
+        'rejectedByDrivers': rejectedByDrivers,
+        'preferredAmbulanceEquipment': preferredAmbulanceEquipment,
+        'preferredAmbulanceSize': preferredAmbulanceSize,
         'job': job!.toJson(),
       };
 }

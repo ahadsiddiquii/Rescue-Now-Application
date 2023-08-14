@@ -112,12 +112,28 @@ class OrderTile extends StatelessWidget {
             'Condition: ${currentWorkingOrder.reason}',
             style: ScreenConfig.theme.textTheme.headlineSmall,
           ),
+          AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
+          RescueNowText(
+            'Ambulance Details',
+            style: ScreenConfig.theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          AddHeight(DecorationConstants.kWidgetThirdDistanceHeight),
+          RescueNowText(
+            'Ambulance Size: ${currentWorkingOrder.preferredAmbulanceSize}',
+            style: ScreenConfig.theme.textTheme.headlineSmall,
+          ),
+          RescueNowText(
+            'Is Ambulance Equipped? ${currentWorkingOrder.preferredAmbulanceEquipment}',
+            style: ScreenConfig.theme.textTheme.headlineSmall,
+          ),
           if (addWidgetBottom != null) ...[
             AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
             addWidgetBottom!,
           ] else
             AddHeight(
-              DecorationConstants.kWidgetDistanceHeight,
+              DecorationConstants.kWidgetThirdDistanceHeight,
             ),
         ]),
       ),

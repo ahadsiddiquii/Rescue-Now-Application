@@ -12,6 +12,8 @@ class OrderFirestoreService {
     required double pickUpLat,
     required double pickUpLong,
     required String hospitalName,
+    required String preferredAmbulanceSize,
+    required String preferredAmbulanceEquipment,
     required double dropOffLat,
     required double dropoffLong,
     required String customerId,
@@ -28,8 +30,11 @@ class OrderFirestoreService {
         'pickUpLat': pickUpLat,
         'pickUpLong': pickUpLong,
         'hospitalName': hospitalName,
+        'preferredAmbulanceSize': preferredAmbulanceSize,
+        'preferredAmbulanceEquipment': preferredAmbulanceEquipment,
         'dropOffLat': dropOffLat,
         'dropoffLong': dropoffLong,
+        'rejectedByDrivers': [],
         'job': null
       };
 
@@ -48,7 +53,9 @@ class OrderFirestoreService {
     }
   }
 
-  Future<List<Emergency>> getAllUnacceptedOrders() async {
+  Future<List<Emergency>> getAllUnacceptedOrders({
+    required String driverid,
+  }) async {
     print('OrderFirestoreService: getAllUnacceptedOrders Function');
     try {
       final CollectionReference collectionRef =
@@ -66,7 +73,8 @@ class OrderFirestoreService {
       List<Emergency> allOrders = [];
       for (final item in allData) {
         final singleOrder = item as Map<String, dynamic>;
-        if (item['isAccepted'] == false) {
+        if (item['isAccepted'] == false &&
+            !item['rejectedByDrivers'].contains(driverid)) {
           allOrders.add(Emergency.fromJson(singleOrder));
         }
       }
@@ -156,6 +164,10 @@ class OrderFirestoreService {
         'hospitalName': acceptedOrder.hospitalName,
         'dropOffLat': acceptedOrder.dropOffLat,
         'dropoffLong': acceptedOrder.dropoffLong,
+        'preferredAmbulanceSize': acceptedOrder.preferredAmbulanceSize,
+        'preferredAmbulanceEquipment':
+            acceptedOrder.preferredAmbulanceEquipment,
+        'rejectedByDrivers': acceptedOrder.rejectedByDrivers,
         'job': {
           'id': jobId,
           'driverId': driverId,
@@ -203,6 +215,10 @@ class OrderFirestoreService {
         'hospitalName': acceptedOrder.hospitalName,
         'dropOffLat': acceptedOrder.dropOffLat,
         'dropoffLong': acceptedOrder.dropoffLong,
+        'preferredAmbulanceSize': acceptedOrder.preferredAmbulanceSize,
+        'preferredAmbulanceEquipment':
+            acceptedOrder.preferredAmbulanceEquipment,
+        'rejectedByDrivers': acceptedOrder.rejectedByDrivers,
         'job': {
           'id': acceptedOrder.job!.id,
           'driverId': acceptedOrder.job!.driverId,
@@ -255,6 +271,9 @@ class OrderFirestoreService {
             'hospitalName': doc['hospitalName'],
             'dropOffLat': doc['dropOffLat'],
             'dropoffLong': doc['dropoffLong'],
+            'preferredAmbulanceSize': doc['preferredAmbulanceSize'],
+            'preferredAmbulanceEquipment': doc['preferredAmbulanceEquipment'],
+            'rejectedByDrivers': doc['rejectedByDrivers'],
           };
           if (doc['isAccepted'] == true) {
             orderMap.addAll({
@@ -276,6 +295,44 @@ class OrderFirestoreService {
       } else {
         throw 'Order not found';
       }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> driverRejectedTheOrder({
+    required Emergency emergencyOrder,
+    required String driverId,
+  }) async {
+    print('OrderFirestoreService: updateJob Function');
+
+    try {
+      emergencyOrder.rejectedByDrivers.add(driverId);
+      Map<String, dynamic> orderMap = {
+        'orderId': emergencyOrder.id,
+        'customerId': emergencyOrder.customerId,
+        'isAccepted': emergencyOrder.isAccepted,
+        'emergencyLevel': emergencyOrder.emergencyLevel,
+        'reason': emergencyOrder.reason,
+        'pickUpLat': emergencyOrder.pickUpLat,
+        'pickUpLong': emergencyOrder.pickUpLong,
+        'hospitalName': emergencyOrder.hospitalName,
+        'dropOffLat': emergencyOrder.dropOffLat,
+        'dropoffLong': emergencyOrder.dropoffLong,
+        'preferredAmbulanceSize': emergencyOrder.preferredAmbulanceSize,
+        'preferredAmbulanceEquipment':
+            emergencyOrder.preferredAmbulanceEquipment,
+        'rejectedByDrivers': emergencyOrder.rejectedByDrivers,
+        'job': null,
+      };
+
+      await FirebaseFirestore.instance
+          .collection(collectionName)
+          .doc(emergencyOrder.id)
+          .set(orderMap)
+          .catchError((e) {
+        print(e);
+      });
     } catch (e) {
       throw e.toString();
     }

@@ -33,7 +33,9 @@ class DriverCurrentJobHelper {
         message: 'Job started successfully',
       );
       BlocProvider.of<RetrieveOrderBloc>(AppContextManager.getAppContext())
-          .add(GetAllUnAcceptedOrders());
+          .add(GetAllUnAcceptedOrders(
+        driverId: driverId,
+      ));
       BlocProvider.of<DriverCurrentJobBloc>(context).add(
         ChangeJobState(
           currentJobState: DriverCurrentJobAccepted(
@@ -50,6 +52,42 @@ class DriverCurrentJobHelper {
           ),
         ),
       );
+    } catch (e) {
+      CustomSnackBar.snackBarTrigger(
+        context: context,
+        message: CustomExceptionHandler.getError500(),
+      );
+      BlocProvider.of<DriverCurrentJobBloc>(context).add(
+        ChangeJobState(
+          currentJobState: DriverCurrentJobInitial(),
+        ),
+      );
+    }
+  }
+
+  static Future<void> rejectCurrentJob(
+    BuildContext context, {
+    required Emergency currentOrder,
+    required String driverId,
+  }) async {
+    final OrderFirestoreService orderFirestoreService = OrderFirestoreService();
+
+    try {
+      BlocProvider.of<DriverCurrentJobBloc>(context)
+          .add(ChangeJobState(currentJobState: DriverCurrentJobLoading()));
+
+      await orderFirestoreService.driverRejectedTheOrder(
+        emergencyOrder: currentOrder,
+        driverId: driverId,
+      );
+
+      CustomSnackBar.snackBarTrigger(
+        context: context,
+        message: 'You have rejected this emergency.',
+      );
+      BlocProvider.of<RetrieveOrderBloc>(context).add(GetAllUnAcceptedOrders(
+        driverId: driverId,
+      ));
     } catch (e) {
       CustomSnackBar.snackBarTrigger(
         context: context,

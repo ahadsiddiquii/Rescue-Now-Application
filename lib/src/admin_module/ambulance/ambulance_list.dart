@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../config/screen_config.dart';
+import '../../generic_widgets/add_height.dart';
 import '../../generic_widgets/circular_progress_indicator.dart';
 import '../../generic_widgets/initial_padding.dart';
 import '../../generic_widgets/rescue_divider.dart';
@@ -61,36 +63,82 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                 itemBuilder: (context, i) {
                   return Card(
                     color: DecorationConstants.kAppBarColor,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              height: 50,
-                              child: Image.memory(base64Decode(
-                                  state.allAmbulanceList[i].vehicleFrontImage)),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: DecorationConstants.kDropShadowColor
+                                  .withOpacity(0.5),
+                              blurRadius: 3,
+                              offset: const Offset(0, 2),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            RescueNowText(state.allAmbulanceList[i].plateNumber)
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            BlocProvider.of<AmbulanceBloc>(context)
-                                .add(DeleteAmbulance(
-                              plateNumber:
-                                  state.allAmbulanceList[i].plateNumber,
-                            ));
-                          },
-                          child: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
+                          ]),
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 10, bottom: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                height: 50,
+                                child: Image.memory(base64Decode(state
+                                    .allAmbulanceList[i].vehicleFrontImage)),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const AddHeight(0.005),
+                                  RescueNowText(
+                                    'Plate No# ${state.allAmbulanceList[i].plateNumber}',
+                                    style: ScreenConfig
+                                        .theme.textTheme.headlineSmall
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const AddHeight(0.001),
+                                  RescueNowText(
+                                    'Equipment: ${state.allAmbulanceList[i].equipped}',
+                                    style: ScreenConfig
+                                        .theme.textTheme.bodyLarge
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const AddHeight(0.001),
+                                  RescueNowText(
+                                    'Size: ${state.allAmbulanceList[i].size}',
+                                    style: ScreenConfig
+                                        .theme.textTheme.bodyLarge
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        )
-                      ],
+                          GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<AmbulanceBloc>(context)
+                                  .add(DeleteAmbulance(
+                                plateNumber:
+                                    state.allAmbulanceList[i].plateNumber,
+                              ));
+                            },
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },

@@ -11,6 +11,8 @@ class AmbulanceFirestoreService {
     required String plateNumber,
     required String vehicleImage,
     required String registrationImage,
+    required String equipped,
+    required String size,
   }) async {
     print('AmbulanceFirestoreService: addAmbulance Function');
     bool vehicleAlreadyExists = false;
@@ -36,6 +38,8 @@ class AmbulanceFirestoreService {
           'plateNumber': plateNumber,
           'vehicleFrontImage': vehicleImage,
           'vehicleRegistrationImage': registrationImage,
+          'equipped': equipped,
+          'size': size,
         };
 
         await FirebaseFirestore.instance

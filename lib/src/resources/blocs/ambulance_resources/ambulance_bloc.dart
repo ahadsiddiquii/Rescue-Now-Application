@@ -21,6 +21,8 @@ class AmbulanceBloc extends Bloc<AmbulanceEvent, AmbulanceState> {
           plateNumber: event.plateNumber,
           vehicleImage: event.vehicleImage,
           registrationImage: event.registrationImage,
+          equipped: event.equipped,
+          size: event.size,
         );
         if (isAmbulanceAdded) {
           CustomSnackBar.snackBarTrigger(

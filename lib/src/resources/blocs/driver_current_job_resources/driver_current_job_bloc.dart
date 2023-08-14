@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../../generic_widgets/custom_snackbar.dart';
 import '../../app_context_manager.dart';
@@ -29,7 +29,9 @@ class DriverCurrentJobBloc
           message: 'Job started successfully',
         );
         BlocProvider.of<RetrieveOrderBloc>(AppContextManager.getAppContext())
-            .add(GetAllUnAcceptedOrders());
+            .add(GetAllUnAcceptedOrders(
+          driverId: event.driverId,
+        ));
         emit(DriverCurrentJobAccepted(currentWorkingOrder: updatedEmergency));
       } catch (e) {
         CustomSnackBar.snackBarTrigger(
@@ -56,7 +58,9 @@ class DriverCurrentJobBloc
           message: 'Job started successfully',
         );
         BlocProvider.of<RetrieveOrderBloc>(AppContextManager.getAppContext())
-            .add(GetAllUnAcceptedOrders());
+            .add(GetAllUnAcceptedOrders(
+          driverId: event.driverId,
+        ));
         emit(DriverCurrentJobAccepted(
           currentWorkingOrder: updatedEmergency,
         ));

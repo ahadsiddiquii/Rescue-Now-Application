@@ -14,6 +14,7 @@ class AcceptCurrentOrder extends DriverCurrentJobEvent {
 
 class UpdateCurrentOrder extends DriverCurrentJobEvent {
   UpdateCurrentOrder({
+    required this.driverId,
     required this.orderId,
     required this.currentOrder,
     required this.onPickupLocation,
@@ -21,6 +22,7 @@ class UpdateCurrentOrder extends DriverCurrentJobEvent {
     required this.onDropoffLocation,
     required this.isDelivered,
   });
+  final String driverId;
   final String orderId;
   final Emergency currentOrder;
   final bool onPickupLocation;

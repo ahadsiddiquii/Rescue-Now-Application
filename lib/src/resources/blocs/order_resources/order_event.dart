@@ -8,10 +8,14 @@ class InsertEmergencyOrder extends OrderEvent {
     required this.customerId,
     required this.emergencyLevel,
     required this.stress,
+    required this.ambulanceSize,
+    required this.ambulanceEquipment,
   });
   final String emergencyLevel;
   final String stress;
   final String customerId;
+  final String ambulanceSize;
+  final String ambulanceEquipment;
 }
 
 class InsertNormalOrder extends OrderEvent {
@@ -20,6 +24,8 @@ class InsertNormalOrder extends OrderEvent {
     required this.emergencyLevel,
     required this.stress,
     required this.hospital,
+    required this.ambulanceSize,
+    required this.ambulanceEquipped,
     required this.currentLat,
     required this.currentLong,
   });
@@ -27,6 +33,8 @@ class InsertNormalOrder extends OrderEvent {
   final String stress;
   final String customerId;
   final Hospital hospital;
+  final String ambulanceSize;
+  final String ambulanceEquipped;
   final double currentLat;
   final double currentLong;
 }

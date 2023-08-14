@@ -8,10 +8,14 @@ class AddAmbulance extends AmbulanceEvent {
     required this.plateNumber,
     required this.vehicleImage,
     required this.registrationImage,
+    required this.equipped,
+    required this.size,
   });
   final String plateNumber;
   final String vehicleImage;
   final String registrationImage;
+  final String equipped;
+  final String size;
 }
 
 class DeleteAmbulance extends AmbulanceEvent {

@@ -91,9 +91,12 @@ class _OrderInsertWidgets extends StatelessWidget {
                 if (userId != null) {
                   BlocProvider.of<OrderBloc>(context).add(
                     InsertEmergencyOrder(
-                        customerId: userId,
-                        emergencyLevel: 'MAX',
-                        stress: 'Unknown'),
+                      customerId: userId,
+                      emergencyLevel: 'MAX',
+                      stress: 'Unknown',
+                      ambulanceSize: 'Big',
+                      ambulanceEquipment: 'Equipped',
+                    ),
                   );
                 }
               },

@@ -12,6 +12,8 @@ import '../../generic_widgets/camera_helper/camera_helper.dart';
 import '../../generic_widgets/camera_helper/image_error_message.dart';
 import '../../generic_widgets/camera_helper/upload_image_container.dart';
 import '../../generic_widgets/circular_progress_indicator.dart';
+import '../../generic_widgets/drop_downs/drop_down_lists.dart';
+import '../../generic_widgets/drop_downs/rescue_now_dropdown.dart';
 import '../../generic_widgets/initial_padding.dart';
 import '../../generic_widgets/rescue_now_appbar.dart';
 import '../../generic_widgets/rescue_now_text_field.dart';
@@ -39,6 +41,8 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
   String? vehicleF, vehicleB, regF, regB;
 
   TextEditingController plateNumberController = TextEditingController();
+  String _selectedEquippedValue = 'Equipped';
+  String _selectedSizeValue = 'Big';
   Future<String?> convertFileToBase64(File? image) async {
     String? imageBase64;
     if (image != null) {
@@ -71,11 +75,15 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
       String? vehicleFrontImage = await convertFileToBase64(vehicleFront);
       String? regFrontImage = await convertFileToBase64(regFront);
 
-      BlocProvider.of<AmbulanceBloc>(context).add(AddAmbulance(
-        plateNumber: plateNumberController.text,
-        vehicleImage: vehicleFrontImage!,
-        registrationImage: regFrontImage!,
-      ));
+      BlocProvider.of<AmbulanceBloc>(context).add(
+        AddAmbulance(
+          plateNumber: plateNumberController.text,
+          vehicleImage: vehicleFrontImage!,
+          registrationImage: regFrontImage!,
+          equipped: _selectedEquippedValue,
+          size: _selectedSizeValue,
+        ),
+      );
     }
   }
 
@@ -149,16 +157,14 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: RescueNowAppBar(
+      appBar: const RescueNowAppBar(
         titleText: 'Add Ambulance',
-        centerTitle: true,
-        showActions: false,
         isHamburger: false,
         showBackButton: true,
       ),
       body: InitScreen(
         child: CustomScrollView(
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverFillRemaining(
               hasScrollBody: false,
@@ -188,8 +194,37 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
                   ),
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
                   TextFieldLabel(
+                    labelText: 'Ambulance Size',
+                    onTap: () {},
+                  ),
+                  AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
+                  RescueNowDropdown(
+                    selectedItem: _selectedSizeValue,
+                    onChange: (String? newValue) {
+                      setState(() {
+                        _selectedSizeValue = newValue!;
+                      });
+                    },
+                    dropdownList: DropdownLists.ambulanceSizesList,
+                  ),
+                  AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
+                  TextFieldLabel(
+                    labelText: 'Is Ambulance Equipped?',
+                    onTap: () {},
+                  ),
+                  AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
+                  RescueNowDropdown(
+                    selectedItem: _selectedEquippedValue,
+                    onChange: (String? newValue) {
+                      setState(() {
+                        _selectedEquippedValue = newValue!;
+                      });
+                    },
+                    dropdownList: DropdownLists.ambulanceEquipmentList,
+                  ),
+                  AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
+                  TextFieldLabel(
                     labelText: 'Vehicle Image',
-                    showHelpme: false,
                     onTap: () {},
                   ),
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
@@ -198,12 +233,11 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
                     AddHeight(
                         DecorationConstants.kWidgetSecondaryDistanceHeight -
                             0.01),
-                    ImageErrorMessage(),
+                    const ImageErrorMessage(),
                   ],
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
                   TextFieldLabel(
                     labelText: 'Registration Image',
-                    showHelpme: false,
                     onTap: () {},
                   ),
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
@@ -212,7 +246,7 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
                     AddHeight(
                         DecorationConstants.kWidgetSecondaryDistanceHeight -
                             0.01),
-                    ImageErrorMessage(),
+                    const ImageErrorMessage(),
                   ],
                   AddHeight(DecorationConstants.kWidgetDistanceHeight),
                   const Spacer(),
