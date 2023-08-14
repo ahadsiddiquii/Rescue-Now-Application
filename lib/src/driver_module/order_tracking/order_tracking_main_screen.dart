@@ -15,6 +15,7 @@ import '../../resources/app_context_manager.dart';
 import '../../resources/blocs/driver_bookings_resources/driver_bookings_bloc.dart';
 import '../../resources/blocs/driver_current_job_resources/driver_current_job_bloc.dart';
 import '../../resources/blocs/master_blocs/user_resources/user_provider_helper.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../resources/models/order.dart';
 import '../../ui_config/decoration_constants.dart';
 
@@ -84,7 +85,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
       if (currentOrder.job != null) {
         if (widget.isCustomer) {
           if (currentOrder.job!.isDelivered) {
-            return 'Get Well Soon!';
+            return 'Get Well Soon';
           }
           if (currentOrder.job!.onDropoffLocation) {
             return 'Reached at hospital';
@@ -140,7 +141,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
       appBar: RescueNowAppBar(
         isHamburger: false,
         showBackButton: true,
-        titleText: 'Order Tracking',
+        titleText: 'Location Tracking',
         onBackTap: () {
           Navigator.pop(context);
         },
@@ -161,7 +162,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               RescueNowText(
-                                'Order: ${driverCurrentJobState.currentWorkingOrder.id.substring(0, 13)}',
+                                '${translations.text('Order')} ${driverCurrentJobState.currentWorkingOrder.id.substring(0, 13)}',
                                 style: ScreenConfig
                                     .theme.textTheme.headlineSmall
                                     ?.copyWith(
@@ -178,7 +179,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
                                 child: RescueNowText(
-                                  'Emergency: ${driverCurrentJobState.currentWorkingOrder.emergencyLevel}',
+                                  '${translations.text('Emergency')} ${translations.text(driverCurrentJobState.currentWorkingOrder.emergencyLevel)}',
                                   style: ScreenConfig
                                       .theme.textTheme.headlineSmall!
                                       .copyWith(fontWeight: FontWeight.w700),
@@ -189,7 +190,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                           AddHeight(DecorationConstants
                               .kWidgetSecondaryDistanceHeight),
                           RescueNowText(
-                            'Dropoff Location: ${driverCurrentJobState.currentWorkingOrder.hospitalName}',
+                            '${translations.text('Dropoff Location')} ${driverCurrentJobState.currentWorkingOrder.hospitalName}',
                             style: ScreenConfig.theme.textTheme.headlineSmall,
                           ),
                           AddHeight(DecorationConstants
@@ -220,6 +221,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                               alignment: AlignmentDirectional.center,
                               child: RescueNowText(
                                 'View journey on map',
+                                needsTranslation: true,
                                 style: ScreenConfig
                                     .theme.textTheme.headlineSmall
                                     ?.copyWith(
@@ -231,7 +233,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                           AddHeight(DecorationConstants
                               .kWidgetSecondaryDistanceHeight),
                           RescueNowText(
-                            'Condition: ${driverCurrentJobState.currentWorkingOrder.reason}',
+                            '${translations.text('Condition')} ${translations.text(driverCurrentJobState.currentWorkingOrder.reason)}',
                             style: ScreenConfig.theme.textTheme.headlineSmall,
                           ),
                           AddHeight(
@@ -239,6 +241,7 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                           ),
                           RescueNowText(
                             'Ambulance Details',
+                            needsTranslation: true,
                             style: ScreenConfig.theme.textTheme.headlineSmall
                                 ?.copyWith(
                               fontWeight: FontWeight.w600,
@@ -247,18 +250,18 @@ class _OrderTrackingMainScreenState extends State<OrderTrackingMainScreen> {
                           AddHeight(
                               DecorationConstants.kWidgetThirdDistanceHeight),
                           RescueNowText(
-                            'Ambulance Size: ${driverCurrentJobState.currentWorkingOrder.preferredAmbulanceSize}',
+                            '${translations.text('Ambulance Size')}: ${translations.text(driverCurrentJobState.currentWorkingOrder.preferredAmbulanceSize)}',
                             style: ScreenConfig.theme.textTheme.headlineSmall,
                           ),
                           RescueNowText(
-                            'Is Ambulance Equipped? ${driverCurrentJobState.currentWorkingOrder.preferredAmbulanceEquipment}',
+                            '${translations.text('Is Ambulance Equipped')} ${translations.text(driverCurrentJobState.currentWorkingOrder.preferredAmbulanceEquipment)}',
                             style: ScreenConfig.theme.textTheme.headlineSmall,
                           ),
                           AddHeight(
                             DecorationConstants.kWidgetDistanceHeight,
                           ),
                           RescueNowText(
-                            'Current Status: ${getCurrentStatus(driverCurrentJobState.currentWorkingOrder)}',
+                            '${translations.text('Current Status')} ${translations.text(getCurrentStatus(driverCurrentJobState.currentWorkingOrder))}',
                             style: ScreenConfig.theme.textTheme.headlineMedium
                                 ?.copyWith(
                               fontWeight: FontWeight.w600,

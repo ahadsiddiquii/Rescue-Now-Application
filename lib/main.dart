@@ -32,7 +32,9 @@ Future<void> main() async {
   );
   runApp(BlocProvider(
     create: (context) => TranslationBloc(
-      TranslationState(locale: translations.locale),
+      TranslationState(
+        locale: translations.locale,
+      ),
     ),
     child: const App(),
   ));

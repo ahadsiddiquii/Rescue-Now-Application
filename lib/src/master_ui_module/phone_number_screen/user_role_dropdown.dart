@@ -16,35 +16,39 @@ class UserRoleDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: ScreenConfig.screenSizeWidth * 0.9,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Container(
+        width: ScreenConfig.screenSizeWidth * 0.9,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade100,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(8),
+          ),
         ),
-      ),
-      child: DropdownButton<String>(
-        items: UserRoles.userRolesList.map((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Container(
-              width: ScreenConfig.screenSizeWidth * 0.8,
-              padding: const EdgeInsets.only(left: 20),
-              child: RescueNowText(
-                value,
-                style: ScreenConfig.theme.textTheme.headline5,
+        child: DropdownButton<String>(
+          items: UserRoles.userRolesList.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Container(
+                width: ScreenConfig.screenSizeWidth * 0.8,
+                padding: const EdgeInsets.only(left: 20),
+                child: RescueNowText(
+                  value,
+                  needsTranslation: true,
+                  style: ScreenConfig.theme.textTheme.headlineSmall,
+                ),
               ),
-            ),
-          );
-        }).toList(),
+            );
+          }).toList(),
 
-        onChanged: (String? newValue) {
-          onChange(newValue);
-        },
-        value: selectedItem,
-        underline: const SizedBox(),
-        hint: const SizedBox(), // Hint text when no option is selected
+          onChanged: (String? newValue) {
+            onChange(newValue);
+          },
+          value: selectedItem,
+          underline: const SizedBox(),
+          hint: const SizedBox(), // Hint text when no option is selected
+        ),
       ),
     );
   }

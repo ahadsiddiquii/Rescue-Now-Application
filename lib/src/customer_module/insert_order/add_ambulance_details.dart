@@ -37,7 +37,7 @@ class _AddAmbulanceDetailsState extends State<AddAmbulanceDetails> {
     return Scaffold(
         appBar: RescueNowAppBar(
           isHamburger: false,
-          titleText: 'Hospital Details',
+          titleText: 'Ambulance Details',
           showBackButton: true,
           onBackTap: () {
             Navigator.pop(context);
@@ -66,7 +66,7 @@ class _AddAmbulanceDetailsState extends State<AddAmbulanceDetails> {
                     ),
                     AddHeight(DecorationConstants.kWidgetDistanceHeight),
                     TextFieldLabel(
-                      labelText: 'Is Ambulance Equipped?',
+                      labelText: 'Is Ambulance Equipped',
                       onTap: () {},
                     ),
                     AddHeight(

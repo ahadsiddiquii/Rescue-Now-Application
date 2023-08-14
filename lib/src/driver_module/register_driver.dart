@@ -23,6 +23,7 @@ import '../generic_widgets/text_widget.dart';
 import '../resources/app_context_manager.dart';
 import '../resources/blocs/master_blocs/user_resources/user_bloc.dart';
 import '../resources/custom_exception_handler.dart';
+import '../resources/localization/global_translation.dart';
 import '../ui_config/decoration_constants.dart';
 import 'register_driver_widgets/date_picker.dart';
 
@@ -157,7 +158,6 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
         showCameraModalSheet(context, ImageType.profilePic, updatePfp);
       },
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
             radius: 30,
@@ -171,18 +171,19 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                   )
                 : null,
             child: profilePic == null
-                ? Icon(
+                ? const Icon(
                     Icons.person_3_rounded,
                     color: DecorationConstants.kThemeColor,
                   )
                 : null,
           ),
-          SizedBox(
+          const SizedBox(
             width: 14,
           ),
           RescueNowText(
             'Upload your picture',
-            style: ScreenConfig.theme.textTheme.headline6!.copyWith(
+            needsTranslation: true,
+            style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
               color: DecorationConstants.kThemeColor,
             ),
           )
@@ -280,7 +281,6 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
         isHamburger: false,
         titleText: 'Register Driver',
         centerTitle: false,
-        showActions: false,
         showBackButton: true,
         onTap: () {
           Navigator.pop(context);
@@ -288,7 +288,7 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
       ),
       body: InitScreen(
         child: CustomScrollView(
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverFillRemaining(
               hasScrollBody: false,
@@ -301,7 +301,7 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       AddHeight(
                           DecorationConstants.kWidgetSecondaryDistanceHeight -
                               0.01),
-                    if (showProfileImageError) ImageErrorMessage(),
+                    if (showProfileImageError) const ImageErrorMessage(),
                     const AddHeight(0.03),
                     RescueNowTextField(
                       controller: fullNameController,
@@ -311,10 +311,12 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       keyboadType: TextInputType.text,
                       validator: (String? val) {
                         if (val == null || val.isEmpty) {
-                          return 'Please enter your first name';
+                          return translations
+                              .text('Please enter your first name');
                         }
                         if (val.length < 3) {
-                          return 'Please enter a valid first name';
+                          return translations
+                              .text('Please enter a valid first name');
                         }
 
                         return null;
@@ -328,18 +330,20 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       keyboadType: TextInputType.emailAddress,
                       validator: (String? val) {
                         if (val == null || val.isEmpty) {
-                          return 'Please enter your email';
+                          return translations.text('Please enter your email');
                         }
                         if (val.length < 3) {
-                          return 'Please enter a valid email';
+                          return translations
+                              .text('Please enter a valid email');
                         }
                         if (val.length > 3) {
                           const String emailRegex =
                               r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
-                          RegExp regex = RegExp(emailRegex);
-                          bool isCorrectFormat = regex.hasMatch(val);
+                          final RegExp regex = RegExp(emailRegex);
+                          final bool isCorrectFormat = regex.hasMatch(val);
                           if (!isCorrectFormat) {
-                            return 'Please enter an email with a correct format';
+                            return translations.text(
+                                'Please enter an email with a correct format');
                           }
                         }
 
@@ -351,12 +355,12 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       isDirectionality: false,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return 'CNIC number is required';
+                          return translations.text('CNIC number is required');
 
                           // 'CNIC number is required';
                         }
                         if (val.length < 13) {
-                          return 'Enter a valid CNIC number';
+                          return translations.text('Enter a valid CNIC number');
                         }
                         return null;
                       },
@@ -373,7 +377,7 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       isDirectionality: false,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return 'Expiry date is required';
+                          return translations.text('Expiry date is required');
                         }
                         return null;
                       },
@@ -382,7 +386,7 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       label: 'Enter CNIC expiry date',
                       onTap: () async {
                         // Below line stops keyboard from appearing
-                        FocusScope.of(context).requestFocus(new FocusNode());
+                        FocusScope.of(context).requestFocus(FocusNode());
                         final pickedDate = await rescueNowDatePicker(
                           context,
                           expiryDate,
@@ -397,7 +401,6 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                     const AddHeight(0.03),
                     TextFieldLabel(
                       labelText: 'Upload CNIC images',
-                      showHelpme: false,
                       onTap: () {},
                     ),
                     const AddHeight(0.02),
@@ -406,16 +409,18 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       AddHeight(
                           DecorationConstants.kWidgetSecondaryDistanceHeight -
                               0.01),
-                      ImageErrorMessage(),
+                      const ImageErrorMessage(),
                     ],
                     const AddHeight(0.03),
                     RescueNowTextField(
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return 'License number is required';
+                          return translations
+                              .text('License number is required');
                         }
                         if (val.length < 16) {
-                          return 'Enter a valid license number';
+                          return translations
+                              .text('Enter a valid license number');
                         }
                         return null;
                       },
@@ -432,7 +437,7 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       isDirectionality: false,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
-                          return 'Expiry date is required';
+                          return translations.text('Expiry date is required');
                         }
 
                         return null;
@@ -442,7 +447,7 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                       label: 'Enter expiry date',
                       onTap: () async {
                         // Below line stops keyboard from appearing
-                        FocusScope.of(context).requestFocus(new FocusNode());
+                        FocusScope.of(context).requestFocus(FocusNode());
                         final pickedDate = await rescueNowDatePicker(
                           context,
                           expiryDate,
@@ -457,13 +462,12 @@ class _RegisterDriverScreenState extends State<RegisterDriverScreen> {
                     const AddHeight(0.03),
                     TextFieldLabel(
                       labelText: 'Upload license images',
-                      showHelpme: false,
                       onTap: () {},
                     ),
                     const AddHeight(0.02),
                     _buildUploadLicenseSection(),
                     if (showLicenseImageError) const AddHeight(0.02),
-                    if (showLicenseImageError) ImageErrorMessage(),
+                    if (showLicenseImageError) const ImageErrorMessage(),
                     const AddHeight(0.03),
                     const Spacer(),
                     _updateButton(),

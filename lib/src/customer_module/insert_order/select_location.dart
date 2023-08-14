@@ -146,7 +146,8 @@ class _SelectLocationState extends State<SelectLocation> {
                 ],
                 AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
                 RescueNowText(
-                  'Your current location is already selected if you want to change your location please tap on the map to do so.',
+                  'Your current location is already selected if you want to change your location please tap on the map to do so',
+                  needsTranslation: true,
                   style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.w600,

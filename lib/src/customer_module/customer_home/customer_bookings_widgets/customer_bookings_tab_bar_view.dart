@@ -56,21 +56,24 @@ class CustomerBookingsTabBarView extends StatelessWidget {
               children: [
                 Center(
                   child: RescueNowText(
-                    'You have no emergencies!',
+                    'You have no emergencies',
+                    needsTranslation: true,
                     style: ScreenConfig.theme.textTheme.headlineSmall!
                         .copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
                 Center(
                   child: RescueNowText(
-                    'You have no emergencies!',
+                    'You have no emergencies',
+                    needsTranslation: true,
                     style: ScreenConfig.theme.textTheme.headlineSmall!
                         .copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
                 Center(
                   child: RescueNowText(
-                    'You have no emergencies!',
+                    'You have no emergencies',
+                    needsTranslation: true,
                     style: ScreenConfig.theme.textTheme.headlineSmall!
                         .copyWith(fontWeight: FontWeight.w700),
                   ),
@@ -112,7 +115,8 @@ class _SingleTabBarViewCustomerBookings extends StatelessWidget {
       width: ScreenConfig.screenSizeWidth,
       child: Center(
         child: RescueNowText(
-          'You have no emergencies!',
+          'You have no emergencies',
+          needsTranslation: true,
           style: ScreenConfig.theme.textTheme.headlineSmall!
               .copyWith(fontWeight: FontWeight.w700),
         ),

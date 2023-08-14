@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../resources/app_context_manager.dart';
 import '../resources/blocs/driver_bookings_resources/driver_bookings_bloc.dart';
 import '../resources/blocs/master_blocs/user_resources/user_provider_helper.dart';
+import '../resources/localization/global_translation.dart';
 import '../ui_config/decoration_constants.dart';
 import 'driver_bookings_widgets/driver_bookings_tab_bar.dart';
 
@@ -21,7 +22,7 @@ class DriverBookingsScreen extends StatelessWidget {
         ),
       );
     }
-    return const DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -35,19 +36,19 @@ class DriverBookingsScreen extends StatelessWidget {
             children: [
               TabBar(
                 labelPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0), // Add padding
-                indicator: UnderlineTabIndicator(
+                    const EdgeInsets.symmetric(horizontal: 16.0), // Add padding
+                indicator: const UnderlineTabIndicator(
                   borderSide: BorderSide(
                     width: 2.0,
                     color: DecorationConstants.kThemeColor,
                   ),
                 ),
                 tabs: [
-                  Tab(text: 'Active'),
-                  Tab(text: 'Past'),
+                  Tab(text: translations.text('Active')),
+                  Tab(text: translations.text('Past')),
                 ],
               ),
-              DriverBookingsTabBarView(),
+              const DriverBookingsTabBarView(),
             ],
           ),
         ),

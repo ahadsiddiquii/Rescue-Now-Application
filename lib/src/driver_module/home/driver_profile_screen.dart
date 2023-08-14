@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../generic_widgets/add_height.dart';
+import '../../generic_widgets/dialog_box/change_language_dialog_box.dart';
 import '../../generic_widgets/profile_menu_card.dart';
 import '../../generic_widgets/rescue_divider.dart';
 import '../../resources/app_context_manager.dart';
@@ -19,6 +20,19 @@ class DriverProfileScreen extends StatelessWidget {
         children: [
           AddHeight(
             DecorationConstants.kWidgetDistanceHeight - 0.01,
+          ),
+          const RescueDivider(),
+          ProfileMenuCard(
+            title: 'Change Language',
+            icon: Icons.language,
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const ChangeLanguageDialog();
+                },
+              );
+            },
           ),
           const RescueDivider(),
           ProfileMenuCard(

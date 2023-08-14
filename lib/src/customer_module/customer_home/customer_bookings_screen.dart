@@ -7,6 +7,7 @@ import '../../generic_widgets/rescue_now_appbar.dart';
 import '../../resources/app_context_manager.dart';
 import '../../resources/blocs/customer_bookings/customer_bookings_bloc.dart';
 import '../../resources/blocs/master_blocs/user_resources/user_provider_helper.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../ui_config/decoration_constants.dart';
 import 'customer_bookings_widgets/customer_bookings_tab_bar_view.dart';
 
@@ -62,25 +63,25 @@ class _CustomerBookingsScreenState extends State<CustomerBookingsScreen> {
           isHamburger: false,
           backgroundColor: Colors.grey.shade100,
         ),
-        body: const Center(
+        body: Center(
           child: Column(
             children: [
               TabBar(
                 labelPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0), // Add padding
-                indicator: UnderlineTabIndicator(
+                    const EdgeInsets.symmetric(horizontal: 16.0), // Add padding
+                indicator: const UnderlineTabIndicator(
                   borderSide: BorderSide(
                     width: 2.0,
                     color: DecorationConstants.kThemeColor,
                   ),
                 ),
                 tabs: [
-                  Tab(text: 'Searching'),
-                  Tab(text: 'Current'),
-                  Tab(text: 'Past'),
+                  Tab(text: translations.text('Searching')),
+                  Tab(text: translations.text('Current')),
+                  Tab(text: translations.text('Past')),
                 ],
               ),
-              CustomerBookingsTabBarView(),
+              const CustomerBookingsTabBarView(),
             ],
           ),
         ),

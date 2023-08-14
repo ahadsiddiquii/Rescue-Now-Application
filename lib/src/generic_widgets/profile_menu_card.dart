@@ -31,6 +31,7 @@ class ProfileMenuCard extends StatelessWidget {
             ),
             RescueNowText(
               title,
+              needsTranslation: true,
               style: ScreenConfig.theme.textTheme.headlineSmall,
             )
           ],

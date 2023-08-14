@@ -83,7 +83,7 @@ class DriverCurrentJobHelper {
 
       CustomSnackBar.snackBarTrigger(
         context: context,
-        message: 'You have rejected this emergency.',
+        message: 'You have rejected this emergency',
       );
       BlocProvider.of<RetrieveOrderBloc>(context).add(GetAllUnAcceptedOrders(
         driverId: driverId,

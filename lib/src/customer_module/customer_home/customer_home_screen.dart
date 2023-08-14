@@ -33,13 +33,14 @@ class CustomerHomeScreen extends StatelessWidget {
               SizedBox(
                 width: ScreenConfig.screenSizeWidth * 0.7,
                 child: RescueNowText(
-                  'Are you in emergency?',
+                  'Are you in emergency',
+                  needsTranslation: true,
+                  forceStrutHeight: false,
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                   textAlign: TextAlign.center,
-                  forceStrutHeight: false,
                 ),
               ),
               AddHeight(
@@ -48,7 +49,9 @@ class CustomerHomeScreen extends StatelessWidget {
               SizedBox(
                 width: ScreenConfig.screenSizeWidth * 0.7,
                 child: RescueNowText(
-                  'Press the button below help will reach you soon.',
+                  'Press the button below help will reach you soon',
+                  needsTranslation: true,
+                  forceStrutHeight: false,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: DecorationConstants.kGreySecondaryTextColor,
                         fontWeight: FontWeight.w600,
@@ -106,7 +109,7 @@ class _OrderInsertWidgets extends StatelessWidget {
             ),
             NavigationCard(
               title:
-                  'If you have time and you want to specify emergency details.',
+                  'If you have time and you want to specify emergency details',
               text: 'Navigate by tapping here',
               onTap: () {
                 // CustomSnackBar.snackBarTrigger(

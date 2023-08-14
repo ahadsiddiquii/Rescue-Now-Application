@@ -212,8 +212,7 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
                   ),
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
                   TextFieldLabel(
-                    labelText: '${translations.text('Is Ambulance Equipped')}?',
-                    needsTranslation: false,
+                    labelText: 'Is Ambulance Equipped',
                     onTap: () {},
                   ),
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),

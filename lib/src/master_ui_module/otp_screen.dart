@@ -17,6 +17,7 @@ import '../generic_widgets/text_widget.dart';
 import '../resources/app_context_manager.dart';
 import '../resources/blocs/master_blocs/user_resources/user_bloc.dart';
 import '../resources/firestore_services.dart/user_firestore_service_helper.dart';
+import '../resources/localization/global_translation.dart';
 import '../ui_config/decoration_constants.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -51,16 +52,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   Widget _buildEnterOTPtext() {
     return RescueNowText(
       'To complete verification please enter the 4 digit activation code',
-      style: Theme.of(context).textTheme.headline5!,
+      needsTranslation: true,
+      style: Theme.of(context).textTheme.headlineSmall!,
       textAlign: TextAlign.center,
     );
   }
 
   Widget _buildOTPText() {
     return RescueNowText(
-      'We have sent an OTP verification code to the number $userPhoneNumber',
+      '${translations.text('We have sent an OTP verification code to the number')} $userPhoneNumber',
       forceStrutHeight: false,
-      style: Theme.of(context).textTheme.headline5!.copyWith(
+      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: DecorationConstants.kGreySecondaryTextColor,
           ),
       textAlign: TextAlign.center,
@@ -68,10 +70,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
 
   Widget _buildProceedButton() {
-    UserState state = BlocProvider.of<UserBloc>(context).state;
+    final UserState state = BlocProvider.of<UserBloc>(context).state;
 
     if (state is UserLoading) {
-      return RescueNowCircularProgressIndicator();
+      return const RescueNowCircularProgressIndicator();
     }
 
     return WideButton(
@@ -152,74 +154,75 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     } else {
       CustomSnackBar.snackBarTrigger(
         context: context,
-        message: 'Invalid OTP, please enter a valid OTP',
+        message: 'Invalid OTP please enter a valid OTP',
       );
     }
   }
 
   Widget _buildOTPTextFields() {
-    return SizedBox(
-      width: ScreenConfig.screenSizeWidth * 0.65,
-      child: PinCodeTextField(
-        backgroundColor: Colors.transparent,
-        autoDismissKeyboard: true,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        appContext: context,
-        length: 4,
-        obscureText: false,
-        animationType: AnimationType.fade,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(4),
-          FilteringTextInputFormatter.allow(
-            RegExp(r'^\d+(?:\d+)?$'),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SizedBox(
+        width: ScreenConfig.screenSizeWidth * 0.65,
+        child: PinCodeTextField(
+          backgroundColor: Colors.transparent,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          appContext: context,
+          length: 4,
+          animationType: AnimationType.fade,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(4),
+            FilteringTextInputFormatter.allow(
+              RegExp(r'^\d+(?:\d+)?$'),
+            ),
+          ],
+          pinTheme: PinTheme(
+            shape: PinCodeFieldShape.box,
+            activeColor: DecorationConstants.kTextFieldBackgroundColor,
+            inactiveColor: DecorationConstants.kTextFieldBackgroundColor,
+            borderRadius: BorderRadius.circular(6),
+            fieldHeight: 48,
+            fieldWidth: 48,
+            selectedColor: DecorationConstants.kTextFieldBackgroundColor,
+            activeFillColor: DecorationConstants.kTextFieldBackgroundColor,
+            selectedFillColor: DecorationConstants.kTextFieldBackgroundColor,
+            inactiveFillColor: DecorationConstants.kTextFieldBackgroundColor,
           ),
-        ],
-        pinTheme: PinTheme(
-          shape: PinCodeFieldShape.box,
-          activeColor: DecorationConstants.kTextFieldBackgroundColor,
-          inactiveColor: DecorationConstants.kTextFieldBackgroundColor,
-          borderRadius: BorderRadius.circular(6),
-          fieldHeight: 48,
-          fieldWidth: 48,
-          selectedColor: DecorationConstants.kTextFieldBackgroundColor,
-          activeFillColor: DecorationConstants.kTextFieldBackgroundColor,
-          selectedFillColor: DecorationConstants.kTextFieldBackgroundColor,
-          inactiveFillColor: DecorationConstants.kTextFieldBackgroundColor,
+          cursorColor: Colors.black,
+          animationDuration: const Duration(milliseconds: 300),
+          enableActiveFill: true,
+          controller: otpController,
+          keyboardType: TextInputType.number,
+          validator: (String? value) {
+            if (value!.length != 4) {}
+            return null;
+          },
+          onCompleted: (String value) {
+            if (value.length == 4) {
+              setState(() {
+                disableButton = false;
+              });
+              return;
+            }
+            disableButton = true;
+          },
+          onChanged: (String value) {
+            print(value);
+            if (value.length == 4) {
+              setState(() {
+                disableButton = false;
+              });
+            }
+          },
+          beforeTextPaste: (String? text) {
+            print('Allowing to paste $text');
+            if (double.tryParse(text!) != null) {
+              return true;
+            } else {
+              return false;
+            }
+          },
         ),
-        cursorColor: Colors.black,
-        animationDuration: Duration(milliseconds: 300),
-        enableActiveFill: true,
-        controller: otpController,
-        keyboardType: TextInputType.number,
-        validator: (String? value) {
-          if (value!.length != 4) {}
-          return null;
-        },
-        onCompleted: (String value) {
-          if (value.length == 4) {
-            setState(() {
-              disableButton = false;
-            });
-            return;
-          }
-          disableButton = true;
-        },
-        onChanged: (String value) {
-          print(value);
-          if (value.length == 4) {
-            setState(() {
-              disableButton = false;
-            });
-          }
-        },
-        beforeTextPaste: (String? text) {
-          print("Allowing to paste $text");
-          if (double.tryParse(text!) != null)
-            return true;
-          else {
-            return false;
-          }
-        },
       ),
     );
   }
@@ -235,9 +238,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     return Scaffold(
         appBar: RescueNowAppBar(
           isHamburger: false,
-          titleText: 'Otp Verification',
+          titleText: 'OTP Verification',
           centerTitle: false,
-          showActions: false,
           showBackButton: true,
           onTap: () {
             Navigator.pop(context);
@@ -256,7 +258,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           builder: (BuildContext context, UserState state) {
             return InitScreen(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _buildOTPText(),
                   const AddHeight(0.05),

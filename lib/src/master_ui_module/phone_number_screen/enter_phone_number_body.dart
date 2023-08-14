@@ -7,6 +7,7 @@ import '../../generic_widgets/buttons/wide_button.dart';
 import '../../generic_widgets/initial_padding.dart';
 import '../../generic_widgets/rescue_now_text_field.dart';
 import '../../generic_widgets/text_widget.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../resources/models/user.dart';
 import '../../ui_config/decoration_constants.dart';
 import '../otp_screen.dart';
@@ -52,6 +53,7 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
   Widget _buildOTPText() {
     return RescueNowText(
       'We will send you an OTP on your number for verification',
+      needsTranslation: true,
       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
             color: DecorationConstants.kGreySecondaryTextColor,
           ),
@@ -73,54 +75,59 @@ class _EnterPhoneNumberBodyState extends State<EnterPhoneNumberBody> {
         key: _mobileFormKey,
         child: Column(
           children: [
-            RescueNowTextField(
-              controller: phoneNumberController,
-              label: 'Enter Mobile Number',
-              hintText: '300 0000000',
-              keyboadType: TextInputType.phone,
-              isMobileField: true,
-              onEditingComplete: () {
-                _mobileFormKey.currentState!.validate();
-              },
-              onChanged: (val) {
-                isSubmitting = false;
-                if (val.isNotEmpty && val.length == 10 && val.startsWith('3')) {
-                  setState(() {
-                    disableButton = false;
-                  });
-                } else if (!disableButton) {
-                  setState(() {
-                    disableButton = true;
-                  });
-                }
-              },
-              //onFieldSubmitted: (_) => submit(),
-              onSaved: (val) => phoneNumber = val!.trim(),
-              validator: (val) {
-                if (val == null || val.isEmpty) {
-                  setState(() {
-                    showError = true;
-                    errorText = 'Enter you phone number';
-                    return;
-                  });
-                }
-                if (!(val!.startsWith('3') || val.length != 10)) {
-                  setState(() {
-                    showError = true;
-                    errorText = 'Enter a valid number';
-                    return;
-                  });
-                }
-                showError = false;
-                errorText = null;
-                return;
-              },
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(10),
-                FilteringTextInputFormatter.allow(
-                  RegExp(r'^\d+(?:\d+)?$'),
-                ),
-              ],
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: RescueNowTextField(
+                controller: phoneNumberController,
+                label: 'Enter Mobile Number',
+                hintText: '300 0000000',
+                keyboadType: TextInputType.phone,
+                isMobileField: true,
+                onEditingComplete: () {
+                  _mobileFormKey.currentState!.validate();
+                },
+                onChanged: (val) {
+                  isSubmitting = false;
+                  if (val.isNotEmpty &&
+                      val.length == 10 &&
+                      val.startsWith('3')) {
+                    setState(() {
+                      disableButton = false;
+                    });
+                  } else if (!disableButton) {
+                    setState(() {
+                      disableButton = true;
+                    });
+                  }
+                },
+                //onFieldSubmitted: (_) => submit(),
+                onSaved: (val) => phoneNumber = val!.trim(),
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    setState(() {
+                      showError = true;
+                      errorText = translations.text('Enter you phone number');
+                      return;
+                    });
+                  }
+                  if (!(val!.startsWith('3') || val.length != 10)) {
+                    setState(() {
+                      showError = true;
+                      errorText = translations.text('Enter a valid number');
+                      return;
+                    });
+                  }
+                  showError = false;
+                  errorText = null;
+                  return;
+                },
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10),
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r'^\d+(?:\d+)?$'),
+                  ),
+                ],
+              ),
             ),
             ...[
               const AddHeight(0.02),

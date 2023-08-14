@@ -77,6 +77,7 @@ class _DriverHomeDisplayState extends State<DriverHomeDisplay> {
                   child: Center(
                     child: RescueNowText(
                       'No Emergencies Found',
+                      needsTranslation: true,
                       style: ScreenConfig.theme.textTheme.headlineSmall,
                     ),
                   ),
@@ -157,6 +158,7 @@ class _DriverHomeDisplayState extends State<DriverHomeDisplay> {
                 child: Center(
                   child: RescueNowText(
                     'No Emergencies Found',
+                    needsTranslation: true,
                     style: ScreenConfig.theme.textTheme.headlineSmall,
                   ),
                 ),

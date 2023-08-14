@@ -12,6 +12,7 @@ import '../generic_widgets/rescue_now_text_field.dart';
 import '../resources/app_context_manager.dart';
 import '../resources/blocs/master_blocs/user_resources/user_bloc.dart';
 import '../resources/custom_exception_handler.dart';
+import '../resources/localization/global_translation.dart';
 
 class RegisterCustomerScreen extends StatefulWidget {
   const RegisterCustomerScreen({Key? key}) : super(key: key);
@@ -84,7 +85,6 @@ class _RegisterCustomerScreenState extends State<RegisterCustomerScreen> {
         isHamburger: false,
         titleText: 'Register Customer',
         centerTitle: false,
-        showActions: false,
         showBackButton: true,
         onTap: () {
           Navigator.pop(context);
@@ -103,10 +103,10 @@ class _RegisterCustomerScreenState extends State<RegisterCustomerScreen> {
                 keyboadType: TextInputType.text,
                 validator: (String? val) {
                   if (val == null || val.isEmpty) {
-                    return 'Please enter your first name';
+                    return translations.text('Please enter your first name');
                   }
                   if (val.length < 3) {
-                    return 'Please enter a valid first name';
+                    return translations.text('Please enter a valid first name');
                   }
 
                   return null;
@@ -120,18 +120,19 @@ class _RegisterCustomerScreenState extends State<RegisterCustomerScreen> {
                 keyboadType: TextInputType.emailAddress,
                 validator: (String? val) {
                   if (val == null || val.isEmpty) {
-                    return 'Please enter your email';
+                    return translations.text('Please enter your email');
                   }
                   if (val.length < 3) {
-                    return 'Please enter a valid email';
+                    return translations.text('Please enter a valid email');
                   }
                   if (val.length > 3) {
                     const String emailRegex =
                         r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
-                    RegExp regex = RegExp(emailRegex);
-                    bool isCorrectFormat = regex.hasMatch(val);
+                    final RegExp regex = RegExp(emailRegex);
+                    final bool isCorrectFormat = regex.hasMatch(val);
                     if (!isCorrectFormat) {
-                      return 'Please enter an email with a correct format';
+                      return translations
+                          .text('Please enter an email with a correct format');
                     }
                   }
 

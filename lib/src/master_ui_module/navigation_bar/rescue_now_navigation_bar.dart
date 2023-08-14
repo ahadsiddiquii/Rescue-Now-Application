@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../resources/blocs/navigation_bar_resources/navigation_bar_bloc.dart';
+import '../../resources/localization/global_translation.dart';
 
 enum CustomerSelectedTab { home, orders, profile }
 
@@ -63,6 +64,18 @@ class _RescueNowNavigationBarState extends State<RescueNowNavigationBar> {
       return DotNavigationBar(
         marginR: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         paddingR: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        itemPadding: translations.isLeftLanguageByCode(
+                languageCode: translations.locale.languageCode)
+            ? const EdgeInsets.only(
+                top: 10,
+                bottom: 10,
+                left: 10,
+                right: 5.5,
+              )
+            : const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 16,
+              ),
         currentIndex: CustomerSelectedTab.values.indexOf(_customerSelectedTab),
         onTap: _handleIndexChanged,
         items: [
@@ -93,6 +106,18 @@ class _RescueNowNavigationBarState extends State<RescueNowNavigationBar> {
       return DotNavigationBar(
         marginR: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         paddingR: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        itemPadding: translations.isLeftLanguageByCode(
+                languageCode: translations.locale.languageCode)
+            ? const EdgeInsets.only(
+                top: 10,
+                bottom: 10,
+                left: 10,
+                right: 5.5,
+              )
+            : const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 16,
+              ),
         currentIndex: DriverSelectedTab.values.indexOf(_driverSelectedTab),
         onTap: _handleIndexChanged,
         items: [

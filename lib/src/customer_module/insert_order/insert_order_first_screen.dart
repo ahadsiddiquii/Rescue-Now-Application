@@ -4,6 +4,7 @@ import '../../config/screen_config.dart';
 import '../../generic_widgets/add_height.dart';
 import '../../generic_widgets/rescue_now_appbar.dart';
 import '../../generic_widgets/text_widget.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../ui_config/decoration_constants.dart';
 import 'select_hospital.dart';
 
@@ -52,7 +53,7 @@ class InsertOrderFirstScreen extends StatelessWidget {
             const AddHeight(0.01),
             _TileOfCategories(
               title:
-                  'A non-urgent problem, such as stable clinical cases, which requires transportation to a hospital ward or clinic',
+                  'A nonurgent problem, such as stable clinical cases, which requires transportation to a hospital ward or clinic',
               emergencyLevel: 'LOW',
               userId: userId,
             ),
@@ -111,6 +112,7 @@ class _TileOfCategories extends StatelessWidget {
                 children: [
                   RescueNowText(
                     title,
+                    needsTranslation: true,
                     style: ScreenConfig.theme.textTheme.headlineSmall!.copyWith(
                       color: DecorationConstants.kPrimaryTextColor,
                       fontWeight: FontWeight.w600,
@@ -120,7 +122,7 @@ class _TileOfCategories extends StatelessWidget {
                     0.01,
                   ),
                   RescueNowText(
-                    'Emergency level: $emergencyLevel',
+                    '${translations.text('Emergency level')}: ${translations.text(emergencyLevel)}',
                     style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
                       color: DecorationConstants.kRedColor,
                       fontWeight: FontWeight.w600,

@@ -41,6 +41,8 @@ class NavigationCard extends StatelessWidget {
                 children: [
                   RescueNowText(
                     title,
+                    needsTranslation: true,
+                    forceStrutHeight: false,
                     style: ScreenConfig.theme.textTheme.headlineSmall!.copyWith(
                       color: DecorationConstants.kPrimaryTextColor,
                       fontWeight: FontWeight.w600,
@@ -52,6 +54,8 @@ class NavigationCard extends StatelessWidget {
                   ),
                   RescueNowText(
                     text,
+                    needsTranslation: true,
+                    forceStrutHeight: false,
                     style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
                       color: DecorationConstants.kGreySecondaryTextColor,
                       fontWeight: FontWeight.w600,

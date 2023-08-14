@@ -4,6 +4,7 @@ import 'package:map_launcher/map_launcher.dart';
 import '../../config/screen_config.dart';
 import '../../driver_module/order_tracking/order_tracking_main_screen.dart';
 import '../../resources/blocs/master_blocs/user_resources/user_provider_helper.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../resources/models/order.dart';
 import '../../ui_config/decoration_constants.dart';
 import '../add_height.dart';
@@ -54,7 +55,7 @@ class OrderTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RescueNowText(
-                'Order: ${currentWorkingOrder.id.substring(0, 13)}',
+                '${translations.text('Order')} ${currentWorkingOrder.id.substring(0, 13)}',
                 style: ScreenConfig.theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -69,7 +70,7 @@ class OrderTile extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: RescueNowText(
-                  'Emergency: ${currentWorkingOrder.emergencyLevel}',
+                  '${translations.text('Emergency')} ${translations.text(currentWorkingOrder.emergencyLevel)}',
                   style: ScreenConfig.theme.textTheme.headlineSmall!
                       .copyWith(fontWeight: FontWeight.w700),
                 ),
@@ -78,7 +79,7 @@ class OrderTile extends StatelessWidget {
           ),
           AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
           RescueNowText(
-            'Dropoff Location: ${currentWorkingOrder.hospitalName}',
+            '${translations.text('Dropoff Location')} ${currentWorkingOrder.hospitalName}',
             style: ScreenConfig.theme.textTheme.headlineSmall,
           ),
           AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
@@ -101,6 +102,7 @@ class OrderTile extends StatelessWidget {
               alignment: AlignmentDirectional.center,
               child: RescueNowText(
                 'View journey on map',
+                needsTranslation: true,
                 style: ScreenConfig.theme.textTheme.headlineSmall?.copyWith(
                   color: DecorationConstants.kThemeColor,
                 ),
@@ -109,23 +111,24 @@ class OrderTile extends StatelessWidget {
           ),
           AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
           RescueNowText(
-            'Condition: ${currentWorkingOrder.reason}',
+            '${translations.text('Condition')} ${translations.text(currentWorkingOrder.reason)}',
             style: ScreenConfig.theme.textTheme.headlineSmall,
           ),
           AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
           RescueNowText(
             'Ambulance Details',
+            needsTranslation: true,
             style: ScreenConfig.theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w400,
             ),
           ),
           AddHeight(DecorationConstants.kWidgetThirdDistanceHeight),
           RescueNowText(
-            'Ambulance Size: ${currentWorkingOrder.preferredAmbulanceSize}',
+            '${translations.text('Ambulance Size')}: ${translations.text(currentWorkingOrder.preferredAmbulanceSize)}',
             style: ScreenConfig.theme.textTheme.headlineSmall,
           ),
           RescueNowText(
-            'Is Ambulance Equipped? ${currentWorkingOrder.preferredAmbulanceEquipment}',
+            '${translations.text('Is Ambulance Equipped')} ${translations.text(currentWorkingOrder.preferredAmbulanceEquipment)}',
             style: ScreenConfig.theme.textTheme.headlineSmall,
           ),
           if (addWidgetBottom != null) ...[

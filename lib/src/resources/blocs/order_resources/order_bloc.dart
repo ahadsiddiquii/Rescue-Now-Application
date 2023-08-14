@@ -62,7 +62,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             if (isOrderAdded) {
               CustomSnackBar.snackBarTrigger(
                 context: AppContextManager.getAppContext(),
-                message: 'Ambulance will soon reach out to you. Be safe.',
+                message: 'Ambulance will soon reach out to you Be safe',
               );
               emit(OrderAdded());
             } else {
@@ -107,7 +107,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         if (isOrderAdded) {
           CustomSnackBar.snackBarTrigger(
             context: AppContextManager.getAppContext(),
-            message: 'Ambulance will soon reach out to you. Be safe.',
+            message: 'Ambulance will soon reach out to you Be safe',
           );
           emit(OrderAdded());
         } else {
