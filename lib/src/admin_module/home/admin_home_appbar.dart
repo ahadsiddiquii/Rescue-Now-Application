@@ -34,7 +34,7 @@ class _AdminHomeAppBarState extends State<AdminHomeAppBar> {
       children: [
         AddHeight(DecorationConstants.kWidgetDistanceHeight),
         RescueNowText(
-          'Welcome,',
+          'Welcome',
           needsTranslation: true,
           style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
             color: DecorationConstants.kGreySecondaryTextColor,
@@ -69,6 +69,7 @@ class _AdminHomeAppBarState extends State<AdminHomeAppBar> {
           padding: const EdgeInsets.only(
             top: 12.0,
             right: 15.0,
+            left: 15.0,
           ),
           child: CircleAvatar(
             radius: ScreenConfig.screenSizeWidth * 0.05,

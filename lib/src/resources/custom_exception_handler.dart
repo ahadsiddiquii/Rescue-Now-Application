@@ -5,12 +5,12 @@ import 'dart:io';
 class CustomExceptionHandler {
   CustomExceptionHandler._();
   static const String _error500 =
-      'There is some problem in the connection. Please check back later';
+      'There is some problem in the connection please check back later';
 
   static const String _socketExceptionError =
       'Please check your internet connection';
   static const String _typeExceptionError =
-      'Something went wrong. Please try again.';
+      'Something went wrong please try again';
 
   static String handleException(Object exception) {
     if (exception is SocketException ||

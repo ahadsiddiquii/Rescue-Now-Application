@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/screen_config.dart';
+import '../resources/localization/global_translation.dart';
 import '../ui_config/decoration_constants.dart';
 import 'text_widget.dart';
 
@@ -111,10 +112,16 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
               child: InkWell(
                 customBorder: const CircleBorder(),
                 onTap: widget.onBackTap ?? () => Navigator.of(context).pop(),
-                child: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: DecorationConstants.kPrimaryTextColor,
-                  size: 28,
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Icon(
+                    translations.isLeftLanguageByCode(
+                            languageCode: translations.locale.languageCode)
+                        ? Icons.arrow_forward_ios_rounded
+                        : Icons.arrow_back_ios_new_rounded,
+                    color: DecorationConstants.kPrimaryTextColor,
+                    size: 28,
+                  ),
                 ),
               ),
             )

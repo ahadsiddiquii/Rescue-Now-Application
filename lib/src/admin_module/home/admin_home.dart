@@ -106,15 +106,18 @@ class AdminHomeDisplay extends StatelessWidget {
                     },
                   );
                 },
-                backgroundColor: const Color.fromARGB(255, 212, 241, 213),
+                backgroundColor: const Color.fromARGB(255, 252, 124, 107),
                 child: SizedBox(
                   width: ScreenConfig.screenSizeWidth * 0.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
+                        height: ScreenConfig.screenSizeHeight * 0.1,
+                        width: ScreenConfig.screenSizeWidth * 0.3,
                         child: Image.asset(
-                          '${DecorationConstants.imagePath}hospital_image.png',
+                          '${DecorationConstants.imagePath}translation_image.png',
+                          fit: BoxFit.cover,
                         ),
                       ),
                       AddHeight(DecorationConstants.kWidgetDistanceHeight),

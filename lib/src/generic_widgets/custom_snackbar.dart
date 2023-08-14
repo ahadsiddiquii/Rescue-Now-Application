@@ -27,6 +27,7 @@ class CustomSnackBar {
     return SnackBar(
       content: RescueNowText(
         text,
+        needsTranslation: true,
         textAlign: TextAlign.center,
       ),
       duration: const Duration(milliseconds: 2000),

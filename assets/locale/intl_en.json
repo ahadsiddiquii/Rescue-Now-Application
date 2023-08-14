@@ -1,7 +1,7 @@
 {
  "English":"English", 
  "Urdu":"اردو",
- "Welcome,":"Welcome,",
+ "Welcome":"Welcome,",
  "Ambulance":"Ambulance",
  "Plate No":"Plate No",
  "Equipment":"Equipment",
@@ -29,5 +29,20 @@
  "Select Location":"Select Location",
  "Please select a hospital location, by dropping a pin on the map":"Please select a hospital location, by dropping a pin on the map",
  "Proceed":"Proceed",
- "Change Language":"Change Language"
+ "Change Language":"Change Language",
+ "Equipped":"Equipped",
+ "Non equipped":"Non equipped",
+ "Small":"Small",
+ "Big":"Big",
+ "Take Picture":"Take Picture",
+ "Upload From Gallery":"Upload From Gallery",
+ "Ambulance retrieved successfully":"Ambulance retrieved successfully",
+ "Ambulance added successfully":"Ambulance added successfully",
+ "Ambulance deleted successfully":"Ambulance deleted successfully",
+ "There is some problem in the connection please check back later":"There is some problem in the connection please check back later",
+ "Please check your internet connection":"Please check your internet connection",
+ "Something went wrong please try again":"Something went wrong please try again",
+ "Hospitals retrieved successfully":"Hospitals retrieved successfully",
+ "Hospital added successfully":"Hospital added successfully",
+ "Hospital deleted successfully":"Hospital deleted successfully"
 }

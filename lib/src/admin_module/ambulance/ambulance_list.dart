@@ -105,7 +105,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                                   ),
                                   const AddHeight(0.001),
                                   RescueNowText(
-                                    '${translations.text('Equipment')}: ${state.allAmbulanceList[i].equipped}',
+                                    '${translations.text('Equipment')}: ${translations.text(state.allAmbulanceList[i].equipped)}',
                                     style: ScreenConfig
                                         .theme.textTheme.bodyLarge
                                         ?.copyWith(
@@ -114,7 +114,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                                   ),
                                   const AddHeight(0.001),
                                   RescueNowText(
-                                    '${translations.text('Size')}: ${state.allAmbulanceList[i].size}',
+                                    '${translations.text('Size')}: ${translations.text(state.allAmbulanceList[i].size)}',
                                     style: ScreenConfig
                                         .theme.textTheme.bodyLarge
                                         ?.copyWith(
