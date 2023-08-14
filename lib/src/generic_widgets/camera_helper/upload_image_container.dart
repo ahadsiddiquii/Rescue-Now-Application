@@ -11,13 +11,7 @@ import 'camera_helper.dart';
 import 'image_uploaded_container.dart';
 
 class UploadImageField extends StatefulWidget {
-  final String text;
-  final ImageType imageType;
-  final Function(File) updateImage;
-  final File? image;
-  final String? imageString;
-
-  UploadImageField(
+  const UploadImageField(
       {required this.updateImage,
       required this.imageType,
       required this.text,
@@ -25,6 +19,11 @@ class UploadImageField extends StatefulWidget {
       this.image,
       Key? key})
       : super(key: key);
+  final String text;
+  final ImageType imageType;
+  final Function(File) updateImage;
+  final File? image;
+  final String? imageString;
 
   @override
   State<UploadImageField> createState() => _UploadImageFieldState();
@@ -42,14 +41,13 @@ class _UploadImageFieldState extends State<UploadImageField> {
             },
             child: widget.image == null && widget.imageString == null
                 ? DottedBorder(
-                    radius: Radius.circular(6),
+                    radius: const Radius.circular(6),
                     borderType: BorderType.RRect,
-                    strokeWidth: 1,
-                    padding: EdgeInsets.all(0.1),
+                    padding: const EdgeInsets.all(0.1),
                     color: DecorationConstants.kGreySecondaryTextColor,
-                    dashPattern: [10, 10],
+                    dashPattern: const [10, 10],
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 3),
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
                       alignment: Alignment.center,
                       width: ScreenConfig.screenSizeWidth * 0.43,
                       height: 125,
@@ -58,7 +56,6 @@ class _UploadImageFieldState extends State<UploadImageField> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -68,8 +65,9 @@ class _UploadImageFieldState extends State<UploadImageField> {
                           ),
                           RescueNowText(
                             'Tap here to take a picture',
+                            needsTranslation: true,
                             maxLines: 3,
-                            style: ScreenConfig.theme.textTheme.headline5!
+                            style: ScreenConfig.theme.textTheme.headlineSmall!
                                 .copyWith(
                               color:
                                   DecorationConstants.kGreySecondaryTextColor,
@@ -87,7 +85,8 @@ class _UploadImageFieldState extends State<UploadImageField> {
         AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
         RescueNowText(
           widget.text,
-          style: ScreenConfig.theme.textTheme.headline5,
+          needsTranslation: true,
+          style: ScreenConfig.theme.textTheme.headlineSmall,
         ),
       ],
     );

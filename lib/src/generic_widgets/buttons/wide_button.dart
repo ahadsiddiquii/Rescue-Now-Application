@@ -10,6 +10,7 @@ class WideButton extends StatelessWidget {
   const WideButton({
     required this.onPressed,
     required this.buttonText,
+    this.needsTranslation = true,
     this.buttonHeight,
     this.buttonWidth,
     this.isTransparent = false,
@@ -26,6 +27,7 @@ class WideButton extends StatelessWidget {
   final double? buttonWidth;
   final double? buttonHeight;
   final bool isBottomPadding;
+  final bool needsTranslation;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +46,8 @@ class WideButton extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.zero,
           alignment: Alignment.center,
-          height: buttonHeight != null
-              ? buttonHeight
-              : ScreenConfig.screenSizeHeight * 0.065,
-          width:
-              buttonWidth != null ? buttonWidth : ScreenConfig.screenSizeWidth,
+          height: buttonHeight ?? ScreenConfig.screenSizeHeight * 0.065,
+          width: buttonWidth ?? ScreenConfig.screenSizeWidth,
           decoration: BoxDecoration(
             gradient: (!disableButton && !isTransparent)
                 ? DecorationConstants.linearGradient
@@ -66,7 +65,8 @@ class WideButton extends StatelessWidget {
           ),
           child: RescueNowText(
             buttonText,
-            style: ScreenConfig.theme.textTheme.headline5!.copyWith(
+            needsTranslation: needsTranslation,
+            style: ScreenConfig.theme.textTheme.headlineSmall!.copyWith(
               color: disableButton
                   ? Colors.white
                   : isTransparent

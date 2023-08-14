@@ -15,7 +15,8 @@ class MapsErrorMessageDisplay extends StatelessWidget {
         horizontal: DecorationConstants.kTextFieldHorizontalContentPadding,
       ),
       child: RescueNowText(
-        'Please select a hospital location, by dropping a pin on the map.',
+        'Please select a hospital location, by dropping a pin on the map',
+        needsTranslation: true,
         style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
           color: DecorationConstants.kRedColor,
         ),

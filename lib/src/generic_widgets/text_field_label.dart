@@ -6,11 +6,16 @@ import 'text_widget.dart';
 
 class TextFieldLabel extends StatelessWidget {
   const TextFieldLabel(
-      {this.onTap, this.showHelpme = false, required this.labelText, Key? key})
+      {this.onTap,
+      this.showHelpme = false,
+      required this.labelText,
+      this.needsTranslation = true,
+      Key? key})
       : super(key: key);
   final String labelText;
   final bool showHelpme;
   final VoidCallback? onTap;
+  final bool needsTranslation;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,8 @@ class TextFieldLabel extends StatelessWidget {
       children: [
         RescueNowText(
           labelText,
-          style: Theme.of(context).textTheme.headline5,
+          needsTranslation: needsTranslation,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         if (showHelpme && onTap != null)
           InkWell(
@@ -49,7 +55,7 @@ class TextFieldLabel extends StatelessWidget {
                 ),
                 RescueNowText(
                   'Help Me',
-                  style: ScreenConfig.theme.textTheme.headline6!.copyWith(
+                  style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
                     color: DecorationConstants.kGreySecondaryTextColor,
                   ),
                 ),

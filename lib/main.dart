@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'src/app.dart';
+import 'src/resources/blocs/translation_resources/translation_bloc.dart';
+import 'src/resources/localization/global_translation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,5 +19,21 @@ Future<void> main() async {
   } else {
     print('Firebase is not initialized');
   }
-  runApp(const App());
+
+  List<String> supportedLanguages = ['en', 'ur'];
+  Map<String, String> supportedLanguagesMapOfNames = {
+    'en': 'English',
+    'ur': 'اردو',
+  };
+  await translations.init(
+    supportedLanguages,
+    supportedLanguagesMapOfNames: supportedLanguagesMapOfNames,
+    fallbackLanguage: 'en',
+  );
+  runApp(BlocProvider(
+    create: (context) => TranslationBloc(
+      TranslationState(locale: translations.locale),
+    ),
+    child: const App(),
+  ));
 }

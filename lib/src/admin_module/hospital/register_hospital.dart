@@ -13,6 +13,7 @@ import '../../generic_widgets/rescue_now_appbar.dart';
 import '../../generic_widgets/rescue_now_text_field.dart';
 import '../../resources/blocs/hospital_resources/hospital_bloc.dart';
 import '../../resources/blocs/retrieve_hospital_resources/retrieve_hospital_bloc.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../ui_config/decoration_constants.dart';
 
 class RegisterHospitalScreen extends StatefulWidget {
@@ -110,11 +111,11 @@ class _RegisterHospitalScreenState extends State<RegisterHospitalScreen> {
                     controller: placeNameController,
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return 'Hospital name is required';
+                        return translations.text('Hospital name is required');
                       }
 
                       if (val.length < 6) {
-                        return 'Enter a valid hospital name';
+                        return translations.text('Enter a valid hospital name');
                       }
 
                       return null;

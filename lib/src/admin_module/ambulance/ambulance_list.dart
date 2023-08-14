@@ -13,6 +13,7 @@ import '../../generic_widgets/text_widget.dart';
 import '../../resources/app_context_manager.dart';
 import '../../resources/blocs/ambulance_resources/ambulance_bloc.dart';
 import '../../resources/blocs/retrieve_ambulance_resources/retrieve_ambulances_bloc.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../ui_config/decoration_constants.dart';
 import 'register_ambulance.dart';
 
@@ -95,7 +96,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                                 children: [
                                   const AddHeight(0.005),
                                   RescueNowText(
-                                    'Plate No# ${state.allAmbulanceList[i].plateNumber}',
+                                    '${translations.text('Plate No')}# ${state.allAmbulanceList[i].plateNumber}',
                                     style: ScreenConfig
                                         .theme.textTheme.headlineSmall
                                         ?.copyWith(
@@ -104,7 +105,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                                   ),
                                   const AddHeight(0.001),
                                   RescueNowText(
-                                    'Equipment: ${state.allAmbulanceList[i].equipped}',
+                                    '${translations.text('Equipment')}: ${state.allAmbulanceList[i].equipped}',
                                     style: ScreenConfig
                                         .theme.textTheme.bodyLarge
                                         ?.copyWith(
@@ -113,7 +114,7 @@ class _AmbulanceListScreenState extends State<AmbulanceListScreen> {
                                   ),
                                   const AddHeight(0.001),
                                   RescueNowText(
-                                    'Size: ${state.allAmbulanceList[i].size}',
+                                    '${translations.text('Size')}: ${state.allAmbulanceList[i].size}',
                                     style: ScreenConfig
                                         .theme.textTheme.bodyLarge
                                         ?.copyWith(

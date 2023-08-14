@@ -35,6 +35,7 @@ class _AdminHomeAppBarState extends State<AdminHomeAppBar> {
         AddHeight(DecorationConstants.kWidgetDistanceHeight),
         RescueNowText(
           'Welcome,',
+          needsTranslation: true,
           style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
             color: DecorationConstants.kGreySecondaryTextColor,
             fontWeight: FontWeight.w600,

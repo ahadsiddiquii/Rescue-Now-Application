@@ -20,6 +20,7 @@ import '../../generic_widgets/rescue_now_text_field.dart';
 import '../../generic_widgets/text_field_label.dart';
 import '../../resources/blocs/ambulance_resources/ambulance_bloc.dart';
 import '../../resources/blocs/retrieve_ambulance_resources/retrieve_ambulances_bloc.dart';
+import '../../resources/localization/global_translation.dart';
 import '../../ui_config/decoration_constants.dart';
 
 class RegisterAmbulanceScreen extends StatefulWidget {
@@ -182,11 +183,13 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
                     controller: plateNumberController,
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return 'Registration number is required';
+                        return translations
+                            .text('Registration number is required');
                       }
 
                       if (val.length < 6) {
-                        return 'Enter a valid registration number';
+                        return translations
+                            .text('Enter a valid registration number');
                       }
 
                       return null;
@@ -209,7 +212,8 @@ class _RegisterAmbulanceScreenState extends State<RegisterAmbulanceScreen> {
                   ),
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),
                   TextFieldLabel(
-                    labelText: 'Is Ambulance Equipped?',
+                    labelText: '${translations.text('Is Ambulance Equipped')}?',
+                    needsTranslation: false,
                     onTap: () {},
                   ),
                   AddHeight(DecorationConstants.kWidgetSecondaryDistanceHeight),

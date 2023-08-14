@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'config/routes.dart';
 import 'config/theme.dart';
@@ -15,6 +16,8 @@ import 'resources/blocs/order_resources/order_bloc.dart';
 import 'resources/blocs/retrieve_ambulance_resources/retrieve_ambulances_bloc.dart';
 import 'resources/blocs/retrieve_hospital_resources/retrieve_hospital_bloc.dart';
 import 'resources/blocs/retrieve_order_resources/retrieve_order_bloc.dart';
+import 'resources/blocs/translation_resources/translation_bloc.dart';
+import 'resources/localization/global_translation.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -64,25 +67,36 @@ class App extends StatelessWidget {
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        child: MaterialApp(
-          navigatorKey: App.navigatorKey,
-          debugShowCheckedModeBanner: false,
-          theme: theme,
-          routes: routes,
-          onGenerateRoute: (RouteSettings settings) {
-            // print('build route for ${settings.name}');
+        child: BlocBuilder<TranslationBloc, TranslationState>(
+          builder: (context, state) {
+            return MaterialApp(
+              navigatorKey: App.navigatorKey,
+              debugShowCheckedModeBanner: false,
+              theme: theme,
+              routes: routes,
+              locale: state.locale,
+              supportedLocales: translations.supportedLocales(),
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              onGenerateRoute: (RouteSettings settings) {
+                // print('build route for ${settings.name}');
 
-            // var routes = <String, WidgetBuilder>{
-            //   OrderChatScreen.route: (ctx) => OrderChatScreen(
-            //       args: settings.arguments as Map<String, dynamic>),
-            //   OrderChatScreenV2.route: (ctx) => OrderChatScreenV2(
-            //       args: settings.arguments as Map<String, dynamic>),
-            // };
-            final WidgetBuilder builder = routes[settings.name]!;
-            return MaterialPageRoute(
-                builder: (BuildContext ctx) => builder(ctx));
+                // var routes = <String, WidgetBuilder>{
+                //   OrderChatScreen.route: (ctx) => OrderChatScreen(
+                //       args: settings.arguments as Map<String, dynamic>),
+                //   OrderChatScreenV2.route: (ctx) => OrderChatScreenV2(
+                //       args: settings.arguments as Map<String, dynamic>),
+                // };
+                final WidgetBuilder builder = routes[settings.name]!;
+                return MaterialPageRoute(
+                    builder: (BuildContext ctx) => builder(ctx));
+              },
+              home: const SplashScreen(),
+            );
           },
-          home: const SplashScreen(),
         ),
       ),
     );

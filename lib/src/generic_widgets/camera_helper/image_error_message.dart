@@ -16,7 +16,8 @@ class ImageErrorMessage extends StatelessWidget {
       ),
       child: RescueNowText(
         'Please upload image',
-        style: ScreenConfig.theme.textTheme.headline6!.copyWith(
+        needsTranslation: true,
+        style: ScreenConfig.theme.textTheme.titleLarge!.copyWith(
           color: DecorationConstants.kRedColor,
         ),
       ),

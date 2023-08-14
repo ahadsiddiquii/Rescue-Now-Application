@@ -24,6 +24,7 @@ class RescueNowAppBar extends StatefulWidget implements PreferredSizeWidget {
       this.showActions = false,
       this.onBackTap,
       this.backgroundColor = Colors.white,
+      this.needsTranslation = true,
       Key? key})
       : super(key: key);
 
@@ -41,6 +42,7 @@ class RescueNowAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool showActions;
   final bool automaticallyImplyLeading;
   final Color backgroundColor;
+  final bool needsTranslation;
 
   @override
   State<RescueNowAppBar> createState() => _RescueNowAppBarState();
@@ -62,6 +64,8 @@ class _RescueNowAppBarState extends State<RescueNowAppBar> {
     }
     return RescueNowText(
       widget.titleText!,
+      needsTranslation: widget.needsTranslation,
+      forceStrutHeight: false,
       style: ScreenConfig.theme.textTheme.displayMedium!.copyWith(
         fontWeight: FontWeight.w600,
       ),

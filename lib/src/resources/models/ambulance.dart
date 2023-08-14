@@ -18,8 +18,8 @@ class Ambulance {
         plateNumber: json['plateNumber'] as String,
         vehicleFrontImage: json['vehicleFrontImage'] as String,
         vehicleRegistrationImage: json['vehicleRegistrationImage'] as String,
-        equipped: json['equipped'] as String,
-        size: json['size'] as String,
+        equipped: json['equipped'] ?? ' ',
+        size: json['size'] ?? ' ',
       );
 
   String plateNumber;
